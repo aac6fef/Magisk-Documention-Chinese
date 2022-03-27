@@ -1,22 +1,22 @@
-# Magisk Manager Changelog
+# Magisk Manager 更新日志
 
 ### v8.0.7
 
-- Fix sepolicy rule migration when upgrading
+- 修复升级后 sepolicy 规则改变的问题。
 
 ### v8.0.6
 
-- Minor UI changes
-- Update internal scripts
+- 细微的 UI 改变。
+- 更新内部脚本。
 
 ### v8.0.5
 
-- Fix sepolicy rule copying
+- 修复 sepolicy 复制规则的问题。
 
 ### v8.0.4
 
-- A lot of stability changes and minor bug fixes
-- Collect device properties, app logcat, and Magisk logs when saving logs in the logs menu
+- 许多稳定性修改以及一些小错误的修复。
+- 在日志选项中会收集设备信息，应用程序日志以及 Magisk 日志。
 
 ### v8.0.3
 
