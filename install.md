@@ -2,17 +2,19 @@
 
 如果你已经在你的设备中安装了 Magisk 本身, **非常推荐**直接使用 Magisk 应用中的 “直接安装”。以下的说明仅仅适用于初始化安装。
 
-## Getting Started
+## 安装前的一些准备
 
-Before you start:
+在开始前:
 
-- This tutorial assumes you understand how to use `adb` and `fastboot`
-- If you plan to also install custom kernels, install it after Magisk
-- Your device's bootloader has to be unlocked
+- 这篇指南假设你会使用 `adb` 和 `fastboot`。
+- 如果你打算安装自定义内核，请在 Magisk 安装完成之后再安装。
+- 你需要解锁你的设备的 bootloader。具体信息请访问你的设备提供商的官网。
 
 ---
 
-Download and install the latest [Magisk app](https://github.com/topjohnwu/Magisk/releases/latest). In the home screen, you should see:
+下载并安装最新的  [Magisk app](https://github.com/topjohnwu/Magisk/releases/latest).
+<br>译者注：如果你发现你无法访问 github 或者下载速度很慢，请考虑从本地的镜像站下载 Magisk。[清华镜像站](https://mirrors.tuna.tsinghua.edu.cn/github-release/topjohnwu/Magisk/LatestRelease/)
+<br>在软件主页，你应该看到如下界面:
 
 <p align="center"><img src="images/device_info.png" width="500"/></p>
 
