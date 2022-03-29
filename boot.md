@@ -1,39 +1,72 @@
-# Android Booting Shenanigans
+# Android 启动过程
 
-## Terminologies
+## 一些术语
 
-- **rootdir**: the root directory (`/`). All files/folders/filesystems are stored in or mounted under rootdir. On Android, the filesystem may be either `rootfs` or the `system` partition.
-- **`initramfs`**: a section in Android's boot image that the Linux kernel will use as `rootfs`. People also use the term **ramdisk** interchangeably
-- **`recovery` and `boot` partition**: these 2 are actually very similar: both are Android boot images containing ramdisk and Linux kernel (plus some other stuff). The only difference is that booting `boot` partition will bring us to Android, while `recovery` has a minimalist self contained Linux environment for repairing and upgrading the device.
-- **SAR**: System-as-root. That is, the device uses `system` as rootdir instead of `rootfs`
-- **A/B, A-only**: For devices supporting [Seamless System Updates](https://source.android.com/devices/tech/ota/ab), it will have 2 slots of all read-only partitions; we call these **A/B devices**. To differentiate, non A/B devices will be called **A-only**
-- **2SI**: Two Stage Init. The way Android 10+ boots. More info later.
+- rootdir 根目录 : 所有的文件/文件夹/文件系统都存储或者挂载在根目录(/)。这个文件系统可能是 **rootfs** 或者是 **system** 分区。
+- initramfs : 具体的介绍见上文，此处介绍 Android 的 **initramfs**. 这玩意实际上是 Android 启动映像的一个分区，Linux 将它用作 **rootfs**。人们通常用 **ramdisk** 这个术语来称呼 **initramfs**
+- **recovery** 和 **boot** 分区：这两个分区实际上非常相像，他们都是包含 **ramdisk** 和 Linux Kernel（以及一些其他的奇妙东西）的 Android 启动映像。他们唯一的区别就是在使用 **boot** 分区启动时，手机会启动到正常的 Android 系统，但是在使用 **recoevry** 分区启动时，会启动一个用于修复系统和升级设备的最小 Linux 环境。
+- SAR : [ System-as-root ](https://source.android.com/devices/bootloader/partitions/system-as-root) 的简称。顾名思义，SAR 意味着用 **system** 代替 **rootfs**
+- A/B 分区和 A-only 分区： 支持[无缝系统更新](https://source.android.com/devices/tech/ota/ab)的设备上会有两个槽位的只读分区，我们把这些设备称为支持 A/B 分区的设备。而不支持[无缝系统更新](https://source.android.com/devices/tech/ota/ab)（或者说只有一个槽位的只读分区）的设备，被称作使用 A-only 分区的设备。
+  2SI：两阶段初始化。是 Android 10 及以上的设备使用的启动方式。下文会详细说明。
 
-Here are a few parameters to more precisely define a device's Android version:
+ 还有一些能更加精确地定义设备上 Android 版本的方式：
+- LV：Launch Version，出厂版本。即在设备上市时设备预安装的版本。
+  <br>译者注：Launch 在此处的意思是上市、发行（to make a peoduct avalible to the public for the first time)，在原文中有解释。
+- RV：Running Version，运行版本。即设备正在运行的 Android 版本。
+  人们常常使用 Android API 版本来定义 LV 和 RV。Android 版本，代号和 API Verison 见下表：
 
-- **LV**: Launch Version. The Android version the device is **launched** with. That is, the Android version pre-installed when the device first hit the market.
-- **RV**: Running Version. The Android version the device is currently running on.
+| Android Version | API Version |      Codename      |
+| :-------------: | :---------: | :----------------: |
+|       1.0       |      1      |         /          |
+|       1.1       |      2      |         /          |
+|       1.5       |      3      |      Cupcake       |
+|       1.6       |      4      |       Donut        |
+|       2.0       |      5      |       Eclair       |
+|      2.0.1      |      6      |       Eclair       |
+|       2.1       |      7      |       Eclair       |
+|       2.2       |      8      |       Froyo        |
+|       2.3       |      9      |    Gingerbread     |
+|      2.3.3      |     10      |    Gingerbread     |
+|       3.0       |     11      |     Honeycomb      |
+|       3.1       |     12      |     Honeycomb      |
+|       3.2       |     13      |     Honeycomb      |
+|       4.0       |     14      | Ice Cream Sandwich |
+|      4.0.3      |     15      | Ice Cream Sandwich |
+|       4.1       |     16      |     Jelly Bean     |
+|       4.2       |     17      |     Jelly Bean     |
+|       4.3       |     18      |     Jelly Bean     |
+|       4.4       |     19      |       KitKat       |
+|      4.4W       |     20      |         /          |
+|       5.0       |     21      |      Lollipop      |
+|       5.1       |     22      |      Lollipop      |
+|       6.0       |     23      |    Marshmallow     |
+|       7.0       |     24      |       Nougat       |
+|       7.1       |     25      |       Nougat       |
+|       8.0       |     26      |        Oreo        |
+|       8.1       |     27      |        Oreo        |
+|        9        |     28      |        Pie         |
+|       10        |     29      |         Q          |
+|       11        |     30      |         R          |
+|       12        |     31      |         S          |
+|       12L       |     32      |     Android12L     |
 
-We will use **Android API level** to represent LV and RV. The mapping between API level and Android versions can be seen in [this table](https://source.android.com/setup/start/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases). For example: Pixel XL is released with Android 7.1, and is running Android 10, these parameters will be `(LV = 25, RV = 29)`
+注：在 Android 10 之后 Google 取消了 Android 版本代号。
+ ### 启动方法
+ Android 的启动方式可以大致被分为三个主要方法。以下是简单的判断你的设备的启动方式的方法
 
-## Boot Methods
+ |方法|初始化根目录|最终根目录|
+ |:-:|:-:|:-:|
+ |A|rootfs|rootfs|
+ |B|system|system|
+ |C|rootfs|system|
 
-Android booting can be roughly categorized into 3 major different methods. We provide a general rule of thumb to determine which method your device is most likely using, with exceptions listed separately.
-
-Method | Initial rootdir | Final rootdir
-:---: | --- | ---
-**A** | `rootfs` | `rootfs`
-**B** | `system` | `system`
-**C** | `rootfs` | `system`
-
-- **Method A - Legacy ramdisk**: This is how *all* Android devices used to boot (good old days). The kernel uses `initramfs` as rootdir, and exec `/init` to boot.
-	- Devices that does not fall in any of Method B and C's criteria
-- **Method B - Legacy SAR**: This method was first seen on Pixel 1. The kernel directly mounts the `system` partition as rootdir and exec `/init` to boot.
-	- Devices with `(LV = 28)`
-	- Google: Pixel 1 and 2. Pixel 3 and 3a when `(RV = 28)`.
-	- OnePlus: 6 - 7
-	- Maybe some `(LV < 29)` Android Go devices?
-- **Method C - 2SI ramdisk SAR**: This method was first seen on Pixel 3 Android 10 developer preview. The kernel uses `initramfs` as rootdir and exec `/init` in `rootfs`. This `init` is responsible to mount the `system` partition and use it as the new rootdir, then finally exec `/system/bin/init` to boot.
+- 方法A——旧式 ramdisk：这是过去所有 Android 设备的启动方式(作者感叹：「过去的好日子啊（大雾」)，设备上的内核将 **initramfs** 作为根目录，然后通过执行 **/init** 来启动。
+- 方法B——旧式SAR：这种启动类型初由 pixel 1 采用。内核直接将 **system** 分区挂载为根目录，然后通过执行 **/init** 来启动。
+  - LV = 28 的设备
+  - Google : Pixel 1 和 Pixel 2. Pixel 3 和 Pixel 3a (只有当RV=28才是如此）
+  - 一加：6-7
+  - 一些RV<29 的 Android Go 设备？
+- 方法C——2SI ramdisk SAR：这种启动类型最初出现在 Pixel 3 上的 Android 10 DP1（注：DP = Developer Preview）。系统的内核使用 initramfs 作为根目录，然后执行根目录中的 /init。 This `init` is responsible to mount the `system` partition and use it as the new rootdir, then finally exec `/system/bin/init` to boot.
 	- Devices with `(LV >= 29)`
 	- Devices with `(LV < 28, RV >= 29)`, excluding those that were already using Method B
 	- Google: Pixel 3 and 3a with `(RV >= 29)`
