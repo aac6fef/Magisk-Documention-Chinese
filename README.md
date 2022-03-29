@@ -6,7 +6,7 @@
 - [发行记录](releases/index.md)
 - [Magisk 更新日志](changes.md)
 
-一下是针对开发者的文档
+以下是针对开发者的文档
 
 - [开发者指南](guides.md)
 - [Magisk 工具](tools.md)
