@@ -21,35 +21,35 @@
 Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如果你的设备没有 ramdisk ，请在开始前阅读 [Magisk in Recovery](#magisk-in-recovery) 
 > _(不幸的是，有些设备的 bootloader 接受 ramdisk，但检测出来却是不支持 ramdisk. 如果你的设备是这样的, 请遵循 **拥有**  ramdisk 的设备的安装指南。目前没有办法检测到这种情况，所以唯一的方法就是尝试。 幸运的是, 我们目前得知只有小米的设备有可能会出现这种情况, 所以大部分人可以忽略这条信息.)_
 
-If you are using a Samsung device that is launched with Android 9.0 or higher, you can now jump to [its own section](#samsung-system-as-root).
+如果你在使用三星的设备，你可以跳转到 [三星设备安装指南](#samsung-system-as-root).
 
-If your device has boot ramdisk, get a copy of the `boot.img`.<br>
-If your device does **NOT** have boot ramdisk, get a copy of the `recovery.img`.<br>
-You should be able to extract the file you need from official firmware packages or your custom ROM zip.
+如果你的设备支持 ramdisk ，请去获取你的设备的 `boot.img`.<br>
+如果你的设备不支持 ramdisk ，请去获取你的设备的 `recovery.img`.<br>
+请从官方固件包或者第三方 ROM 中获得你说需要的文件.
 
-Next, we need to know whether your device has a separate `vbmeta` partition.
+现在，我们需要确认你的设备是否有专门的  `vbmeta` 分区.
 
-- If your official firmware package contains `vbmeta.img`, then yes, your device **has** a separate `vbmeta` partition
-- You can also check by connecting your device to a PC and run the command:<br>
+- 如果你的官方固件中包含 `vbmeta.img`, 这意味着你的设备有专门的 `vbmeta` 分区
+- 你也可以把你的手机了连接到电脑，通过以下命令来验证你的设备是否有单独的 `vbmeta` 分区:<br>
   `adb shell ls -l /dev/block/by-name`
-- If you find `vbmeta`, `vbmeta_a`, or `vbmeta_b`, then yes, your device **has** a separate `vbmeta` partition
-- Otherwise, your device **does not** have a separate `vbmeta` partition.
+- 如果你在执行上文的指令后，在输出中发现了 `vbmeta` 或 `vbmeta_a`、 `vbmeta_b`,这代表这你的设备具有单独的 `vbmeta`分区。
+- 否则，你的设备没有专门的 `vbmeta` 分区。
 
-Quick recap, at this point, you should have known and prepared:
+因此，在现在，你应该知道并且准备了：
 
-1. Whether your device has boot ramdisk
-2. Whether your device has a separate `vbmeta` partition
-3. A `boot.img` or `recovery.img` based on (1)
+1. 你的设备是否支持 `ramdisk`
+2. 你的设备是否有单独的 `vbmeta` 分区
+3. 按照前文准备 `boot.img` 或 `recovery.img` 
 
-Let's continue to [Patching Images](#patching-images).
+让我们继续来 [修改镜像](#修改镜像).
 
-## Patching Images
+# 修改镜像
 
-- Copy the boot/recovery image to your device
-- Press the **Install** button in the Magisk card
-- If you are patching a recovery image, check the **"Recovery Mode"** option
-- If your device does **NOT** have a separate `vbmeta` partition, check the **"Patch vbmeta in boot image"** option
-- Choose **"Select and Patch a File"** in method, and select the boot/recovery image
+- 把你的 boot/recovery 镜像复制到你的设备中。
+- 在你的设备中打开 Magisk ，按下 Magisk 卡片中的 **安装**。
+- 如果你要修改 `recovery.img`, 选中 **"恢复模式"** 选项
+- 如果你的设备 **没有** 单独的 `vbmeta` 分区, 选中 **"修改boot映像中的的vbmeta"** 选项。
+- 选中 **"选择并修复镜像"** , 然后在内部存储中选择 boot/recovery 映像
 - Start the installation, and copy the patched image to your PC using ADB:<br>
   `adb pull /sdcard/Download/magisk_patched_[random_strings].img`
 - Flash the patched boot/recovery image to your device.<br>
