@@ -10,8 +10,7 @@
   2SI：两阶段初始化。是 Android 10 及以上的设备使用的启动方式。下文会详细说明。
 
  还有一些能更加精确地定义设备上 Android 版本的方式：
-- LV：Launch Version，出厂版本。即在设备上市时设备预安装的版本。
-  <br>译者注：Launch 在此处的意思是上市、发行（to make a peoduct avalible to the public for the first time)，在原文中有解释。
+- LV：Launch Version，出厂版本。即在设备上市时设备预安装的版本.
 - RV：Running Version，运行版本。即设备正在运行的 Android 版本。
   人们常常使用 Android API 版本来定义 LV 和 RV。Android 版本，代号和 API Verison 见下表：
 
