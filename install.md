@@ -62,11 +62,11 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 > 注:如果你发现你的设备在刷入后无法启动，请将没有被修改的镜像刷入你的设备（将上文的命令中的修改后的镜像改为没有修改的镜像即可
 ## 卸载
 
-The easiest way to uninstall Magisk is directly through the Magisk app. If you insist on using custom recoveries, rename the Magisk APK to `uninstall.zip` and flash it like any other ordinary flashable zip.
+最简单的卸载方法是在 Magisk 应用中直接卸载. 如果你在使用第三方 recovery , 把 Magisk APK 重命名为 `uninstall.zip` 然后以和其他刷机包一样的方法刷入.
 
-## Magisk in Recovery
+## Recovery 中的 Magisk
 
-In the case when your device does not have ramdisk in boot images, Magisk has no choice but to hijack the recovery partition. For these devices, you will have to **reboot to recovery** every time you want Magisk enabled.
+如果你的设备的 boot 分区中没有 ramdisk, Magisk 只能劫持  recovery 分区. 对于这些设备, 你需要在每次你想要使用 Magisk 的时候 **重启到 recovery** .
 
 When Magisk hijacks the recovery, there is a special mechanism to allow you to _actually_ boot into recovery mode. Each device model has its own key combo to boot into recovery, as an example for Galaxy S10 it is (Power + Bixby + Volume Up). A quick search online should easily get you this info. As soon as you press the key combo and the device vibrates with a splash screen, release all buttons to boot into Magisk. If you decide to boot into the actual recovery mode, **long press volume up until you see the recovery screen**.
 
@@ -76,7 +76,7 @@ As a summary, after installing Magisk in recovery **(starting from power off)**:
 - **(Recovery Key Combo) → (Splash screen) → (Release all buttons) → (System with Magisk)**
 - **(Recovery Key Combo) → (Splash screen) → (Long press volume up) → (Recovery Mode)**
 
-(Note: You **CANNOT** use custom recoveries to install or upgrade Magisk in this case!!)
+(注释: 你 **不能** 在这种情况下用第三方 recovry 来安装 Magisk !!)
 
 ## Samsung (System-as-root)
 
