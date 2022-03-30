@@ -42,25 +42,25 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 3. 按照前文准备 `boot.img` 或 `recovery.img` 
 
 让我们继续来 [修改镜像](#修改镜像).
-
-# 修改镜像
+>如果你手机中的数据对你很重要，请提前备份数据
+## 修改镜像
 
 - 把你的 boot/recovery 镜像复制到你的设备中。
 - 在你的设备中打开 Magisk ，按下 Magisk 卡片中的 **安装**。
 - 如果你要修改 `recovery.img`, 选中 **"恢复模式"** 选项
 - 如果你的设备 **没有** 单独的 `vbmeta` 分区, 选中 **"修改boot映像中的的vbmeta"** 选项。
 - 选中 **"选择并修复镜像"** , 然后在内部存储中选择 boot/recovery 映像
-- Start the installation, and copy the patched image to your PC using ADB:<br>
+- 开始安装，在安装完成后，将修改后的镜像复制到电脑中:<br>
   `adb pull /sdcard/Download/magisk_patched_[random_strings].img`
-- Flash the patched boot/recovery image to your device.<br>
-  For most devices, reboot into fastboot mode and flash with command:<br>
-  `fastboot flash boot /path/to/magisk_patched.img` or <br>
+- 将 boot/recovery 镜像刷入你的设备.<br>
+  对于大部分设备，你可以通过一下命令来刷入修改后的镜像:<br>
+  `fastboot flash boot /path/to/magisk_patched.img` 或者 <br>
   `fastboot flash recovery /path/to/magisk_patched.img`
-- (Optional) If your device has a separate `vbmeta` partition, you can patch the `vbmeta` partition with command:<br>
+- (可选的) 如果你的设备有专门的 `vbmeta` 分区, 你可以通过一下命令刷入修改后的 `vbmeta` 分区:<br>
   `fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img`
-- Reboot and voila!
-
-## Uninstallation
+- 重启，然后享受吧!
+> 注:如果你发现你的设备在刷入后无法启动，请将没有被修改的镜像刷入你的设备（将上文的命令中的修改后的镜像改为没有修改的镜像即可
+## 卸载
 
 The easiest way to uninstall Magisk is directly through the Magisk app. If you insist on using custom recoveries, rename the Magisk APK to `uninstall.zip` and flash it like any other ordinary flashable zip.
 
