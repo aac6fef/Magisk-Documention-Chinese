@@ -1,3 +1,20 @@
+
+<!-- vim-markdown-toc GFM -->
+
+* [安装](#安装)
+	* [安装前的一些准备](#安装前的一些准备)
+	* [修改镜像](#修改镜像)
+	* [卸载](#卸载)
+	* [Recovery 中的 Magisk](#recovery-中的-magisk)
+	* [Samsung (System-as-root)](#samsung-system-as-root)
+		* [Before Installing Magisk](#before-installing-magisk)
+		* [Unlocking Bootloader](#unlocking-bootloader)
+		* [Instructions](#instructions)
+		* [Upgrading the OS](#upgrading-the-os)
+		* [Important Notes](#important-notes)
+	* [Custom Recovery](#custom-recovery)
+
+<!-- vim-markdown-toc -->
 # 安装
 
 如果你已经在你的设备中安装了 Magisk 本身, **非常推荐**直接使用 Magisk 应用中的 “直接安装”。以下的说明仅仅适用于初始化安装。
@@ -40,7 +57,6 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 1. 你的设备是否支持 `ramdisk`
 2. 你的设备是否有单独的 `vbmeta` 分区
 3. 按照前文准备 `boot.img` 或 `recovery.img` 
-
 让我们继续来 [修改镜像](#修改镜像).
 >如果你手机中的数据对你很重要，请提前备份数据
 ## 修改镜像
@@ -127,13 +143,12 @@ Once you have rooted your Samsung device, you can no longer upgrade your Android
 
 ## Custom Recovery
 
-> **This installation method is deprecated and is maintained with minimum effort. YOU HAVE BEEN WARNED!**
+> **这种安装方法已经过时，并且维护很少。请谨慎使用!**
+仅在你的手机的 boot 分区中有 ramdisk 的时候，才使用第三方 recovery 安装。不推荐在现代设备上使用第三方 recovery 安装 Magisk。. 如果你遇到了仍和问题 , 请使用  [修改镜像](#修改镜像) 的方法.
 
-Installing using custom recoveries is only possible if your device has boot ramdisk. Installing Magisk through custom recoveries on modern devices is no longer recommended. If you face any issues, please use the proper [Patch Image](#patching-images) method.
+- 下载 Magisk APK
+- 将文件的 `.apk` 扩展名重命名至 `.zip`, 比如: `Magisk-v24.0.apk` → `Magisk-v24.0.zip`. 如果你无法改变文件的扩展名 (比如 Windows), 使用 Android 上的文件管理或者 TWRP 上的文件管理重命名这个文件.
+- 以刷入普通刷机包的方式刷入它.
+- 请重启，然后查看 Magisk 应用是否被安装. 如果 Magisk 应用没有自动安装 , 请手动安装 APK.
 
-- Download the Magisk APK
-- Rename the `.apk` file extension to `.zip`, for example: `Magisk-v24.0.apk` → `Magisk-v24.0.zip`. If you have trouble renaming the file extension (like on Windows), use a file manager on Android or the one included in TWRP to rename the file.
-- Flash the zip just like any other ordinary flashable zip.
-- Reboot and check whether the Magisk app is installed. If it isn't installed automatically, manually install the APK.
-
-> Warning: the `sepolicy.rule` file of modules may be stored in the `cache` partition. DO NOT WIPE THE `CACHE` PARTITION.
+> 警告 : 一些模块的 `sepolicy.rule` 可能被存储在  `cache` 分区. 请 **不要** 擦除 `CACHE` 分区！
