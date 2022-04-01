@@ -1,3 +1,13 @@
+
+<!-- vim-markdown-toc GFM -->
+
+* [Android 启动过程](#android-启动过程)
+	* [一些术语](#一些术语)
+		* [一些讨论](#一些讨论)
+	* [Some History](#some-history)
+	* [Piecing Things Together](#piecing-things-together)
+
+<!-- vim-markdown-toc -->
 # Android 启动过程
 
 ## 一些术语
@@ -64,24 +74,23 @@
   - LV = 28 的设备
   - Google : Pixel 1 和 Pixel 2. Pixel 3 和 Pixel 3a (只有当RV=28才是如此）
   - 一加：6-7
-  - 一些RV<29 的 Android Go 设备？
-- 方法C——2SI ramdisk SAR：这种启动类型最初出现在 Pixel 3 上的 Android 10 DP1（注：DP = Developer Preview）。系统的内核使用 initramfs 作为根目录，然后执行根目录中的 /init。 This `init` is responsible to mount the `system` partition and use it as the new rootdir, then finally exec `/system/bin/init` to boot.
-	- Devices with `(LV >= 29)`
-	- Devices with `(LV < 28, RV >= 29)`, excluding those that were already using Method B
-	- Google: Pixel 3 and 3a with `(RV >= 29)`
+  - 一些 LV<29 的 Android Go 设备？
+- 方法C——2SI ramdisk SAR：这种启动类型最初出现在 Pixel 3 上的 Android 10 DP1（注：DP = Developer Preview）。系统的内核使用 initramfs 作为根目录，然后执行根目录中的 /init。 这个 init 负责挂载 system 分区为新的根目录，最终执行 /system/bin/init 来启动。
+	- `(LV >= 29)`的设备
+	- 除了使用方法B的 `(LV < 28, RV >= 29)`, 的设备
+	- Google:  `(RV >= 29)` 的 Pixel 3 和 3a
+### 一些讨论
 
-### Discussion
+从 Google 的官方文档看 , Google 对 SAR 的定义只考虑了内核如何启动设备（上表中的 Initial rootdir），也就是说，从 Google 的角度来看，只有使用方法 B 的设备才是 Google 官方认为的 SAR 设备.
 
-From documents online, Google's definition of SAR only considers how the kernel boots the device (**Initial rootdir** in the table above), meaning that only devices using **Method B** is *officially* considered an SAR device from Google's standpoint.
+然而,对于 Magisk 来说，真正的区别在于设备在完全启动时最终使用的根目录是什么（上表中的 Final rootdir），也就是说，就 Magisk 而言，方法 B 和方法 C 都是 SAR 的一种形式，只是实现方式不同。本文档后面提到的每一个 SAR 例子都会参考 Magisk 的定义，除非另有特别说明。
 
-However for Magisk, the real difference lies in what the device ends up using when fully booted (**Final rootdir** in the table above), meaning that **as far as Magisk's concern, both Method B and C is a form of SAR**, but just implemented differently. Every instance of SAR later mentioned in this document will refer to **Magisk's definition** unless specifically says otherwise.
+方法C有一点复杂, 从外行的角度来说 : 要么你的设备足够新，出厂 Android 版本是 10 或者更新的版本 , 或者你的设备过去使用方法a,而现在在运行 Android 10+ .
 
-The criteria for Method C is a little complicated, in layman's words: either your device is modern enough to launch with Android 10+, or you are running an Android 10+ custom ROM on a device that was using Method A.
+- 运行 Android 10+ 的任何使用方法 A 的设备将自动使用方法 C
+- **使用方法B的设备将会停留在方法B**, 唯一的例外是 Pixel 3 和 3a，谷歌对设备进行了改造以适应新方法。
 
-- Any Method A device running Android 10+ will automatically be using Method C
-- **Method B devices are stuck with Method B**, with the only exception being Pixel 3 and 3a, which Google retrofitted the device to adapt the new method.
-
-SAR is a very important part of [Project Treble](https://source.android.com/devices/architecture#hidl) as rootdir should be tied to the platform. This is also the reason why Method B and C comes with `(LV >= ver)` criterion as Google has enforced all OEMs to comply with updated requirements every year.
+SAR 是 [Project Treble](https://source.android.com/devices/architecture#hidl) 的非常重要的一个部分。 as rootdir should be tied to the platform. This is also the reason why Method B and C comes with `(LV >= ver)` criterion as Google has enforced all OEMs to comply with updated requirements every year.
 
 ## Some History
 
