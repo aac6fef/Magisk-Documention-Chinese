@@ -1,4 +1,3 @@
-
 <!-- vim-markdown-toc GFM -->
 
 * [安装](#安装)
@@ -7,8 +6,8 @@
 	* [卸载](#卸载)
 	* [Recovery 中的 Magisk](#recovery-中的-magisk)
 	* [Samsung (System-as-root)](#samsung-system-as-root)
-		* [Before Installing Magisk](#before-installing-magisk)
-		* [Unlocking Bootloader](#unlocking-bootloader)
+		* [在安装前请确认](#在安装前请确认)
+		* [解锁 Bootloader](#解锁-bootloader)
 		* [Instructions](#instructions)
 		* [Upgrading the OS](#upgrading-the-os)
 		* [Important Notes](#important-notes)
@@ -84,11 +83,11 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 
 如果你的设备的 boot 分区中没有 ramdisk, Magisk 只能劫持  recovery 分区. 对于这些设备, 你需要在每次你想要使用 Magisk 的时候 **重启到 recovery** .
 
-When Magisk hijacks the recovery, there is a special mechanism to allow you to _actually_ boot into recovery mode. Each device model has its own key combo to boot into recovery, as an example for Galaxy S10 it is (Power + Bixby + Volume Up). A quick search online should easily get you this info. As soon as you press the key combo and the device vibrates with a splash screen, release all buttons to boot into Magisk. If you decide to boot into the actual recovery mode, **long press volume up until you see the recovery screen**.
+当 Magisk 劫持 recovery 时, there is a special mechanism to allow you to _actually_ boot into recovery mode. Each device model has its own key combo to boot into recovery, as an example for Galaxy S10 it is (Power + Bixby + Volume Up). A quick search online should easily get you this info. As soon as you press the key combo and the device vibrates with a splash screen, release all buttons to boot into Magisk. If you decide to boot into the actual recovery mode, **long press volume up until you see the recovery screen**.
 
-As a summary, after installing Magisk in recovery **(starting from power off)**:
+综上所述, 在 recovery  中 安装 Magisk 后 **(从关机状态开始)**:
 
-- **(Power up normally) → (System with NO Magisk)**
+- **(正常开机) → (没有 Magisk 的 Android 系统)**
 - **(Recovery Key Combo) → (Splash screen) → (Release all buttons) → (System with Magisk)**
 - **(Recovery Key Combo) → (Splash screen) → (Long press volume up) → (Recovery Mode)**
 
@@ -96,15 +95,15 @@ As a summary, after installing Magisk in recovery **(starting from power off)**:
 
 ## Samsung (System-as-root)
 
-> If your Samsung device is NOT launched with Android 9.0 or higher, you are reading the wrong section.
+> 如果你的三星设备的安卓版本 **低于** 9.0, 那么你来错地方了。
 
-### Before Installing Magisk
+### 在安装前请确认
 
-- Installing Magisk **WILL** trip KNOX
-- Installing Magisk for the first time **REQUIRES** a full data wipe (this is **NOT** counting the data wipe when unlocking bootloader). Backup your data before continue.
-- Download Odin (only runs on Windows) that supports your device.
+- 安装 Magisk **会** 出发熔断机制。
+- 第一次安装 Magisk  **需要** 完全擦除一次设备 (这还 **不算上** 解锁 bootloader 的那一次)。请在安装前备份你的数据。
+- 下载支持你的设备的 Odin (仅在 Windows上可用)。
 
-### Unlocking Bootloader
+### 解锁 Bootloader
 
 Unlocking the bootloader on modern Samsung devices have some caveats. The newly introduced `VaultKeeper` service will make the bootloader reject any unofficial partitions in some circumstances.
 
