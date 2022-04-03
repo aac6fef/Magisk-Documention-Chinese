@@ -4,7 +4,7 @@
 * [Android 启动过程](#android-启动过程)
 	* [一些术语](#一些术语)
 		* [一些讨论](#一些讨论)
-	* [Some History](#some-history)
+	* [一些历史](#一些历史)
 	* [Piecing Things Together](#piecing-things-together)
 
 <!-- vim-markdown-toc -->
@@ -90,11 +90,11 @@
 - 运行 Android 10+ 的任何使用方法 A 的设备将自动使用方法 C
 - **使用方法B的设备将会停留在方法B**, 唯一的例外是 Pixel 3 和 3a，谷歌对设备进行了改造以适应新方法。
 
-SAR 是 [Project Treble](https://source.android.com/devices/architecture#hidl) 的非常重要的一个部分。 as rootdir should be tied to the platform. This is also the reason why Method B and C comes with `(LV >= ver)` criterion as Google has enforced all OEMs to comply with updated requirements every year.
+SAR 是 [Project Treble](https://source.android.com/devices/architecture#hidl) 的非常重要的一个部分。因为 rootdir 应该与平台绑定，且谷歌强制所有 OEM 厂商遵守每年更新的要求。这也是为什么方法 B 和 C 带有 ` LV >= API`级别标准的原因。
 
-## Some History
+## 一些历史
 
-When Google released the first generation Pixel, it also introduced [A/B (Seamless) System Updates](https://source.android.com/devices/tech/ota/ab). Due to [storage size concerns](https://source.android.com/devices/tech/ota/ab/ab_faqs), there are several differences compared to A-only, the most relevant one being the removal of `recovery` partition and the recovery ramdisk being merged into `boot`.
+谷歌在发布第一代 Pixel 时，还推出了 [A/B (无缝) 系统更新](https://source.android.com/devices/tech/ota/ab). 由于对 [存储大小](https://source.android.com/devices/tech/ota/ab/ab_faqs)的考虑,与 A-only 相比有几个不同之处，最相关的一个是删除`recovery`分区和将恢复 `ramdisk` 合并到 `boot`.
 
 Let's go back in time when Google is first designing A/B. If using SAR (only Boot Method B exists at that time), the kernel doesn't need `initramfs` to boot Android (because rootdir is in `system`). This mean we can be smart and just stuff the recovery ramdisk (containing the minimalist Linux environment) into `boot`, remove `recovery`, and let the kernel pick whichever rootdir to use (ramdisk or `system`) based on information from the bootloader.
 
