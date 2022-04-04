@@ -75,6 +75,7 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
   `fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img`
 - 重启，然后享受吧!
 > 注:如果你发现你的设备在刷入后无法启动，请将没有被修改的镜像刷入你的设备（将上文的命令中的修改后的镜像改为没有修改的镜像即可
+
 ## 卸载
 
 最简单的卸载方法是在 Magisk 应用中直接卸载. 如果你在使用第三方 recovery , 把 Magisk APK 重命名为 `uninstall.zip` 然后以和其他刷机包一样的方法刷入.
