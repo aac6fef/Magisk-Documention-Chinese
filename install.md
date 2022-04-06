@@ -148,7 +148,6 @@ Once you have rooted your Samsung device, you can no longer upgrade your Android
 ## Custom Recovery
 
 > **这种安装方法已经过时，并且维护很少。请谨慎使用!**  
-> 译者注：我去，我都是用Recovery刷进去的。很tm吓人兄弟  
 > 仅在你的手机的 boot 分区中有 ramdisk 的时候，才使用第三方 recovery 安装。不推荐在现代设备上使用第三方 recovery 安装 Magisk。. 如果你遇到了仍和问题 , 请使用 [修改镜像](#修改镜像) 的方法.
 
 - 下载 Magisk APK
