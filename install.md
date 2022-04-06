@@ -107,13 +107,13 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 
 ### 解锁 Bootloader
 
-Unlocking the bootloader on modern Samsung devices have some caveats. The newly introduced `VaultKeeper` service will make the bootloader reject any unofficial partitions in some circumstances.
+如果你尝试在现代的三星设备上解锁 bootloader ，你会收到一些警告。 最新引入的  `VaultKeeper` 服务会在一些情况下让 bootloader 拒绝接受仍和非官方的分区。
 
-- Allow bootloader unlocking in **Developer options → OEM unlocking**
-- Reboot to download mode: power off your device and press the download mode key combo for your device
-- Long press volume up to unlock the bootloader. **This will wipe your data and automatically reboot.**
-- Go through the initial setup. Skip through all the steps since data will be wiped again in later steps. **Connect the device to Internet during the setup.**
-- Enable developer options, and **confirm that the OEM unlocking option exists and is grayed out.** This means the `VaultKeeper` service has unleashed the bootloader.
+- 打开 **开发者选项 → OEM 解锁** 以允许设备的 bootloader 被解锁。
+- 重启到下载模式 : 把你的设备关机，然后在启动时按你的设备特定的热键以进入下载模式。
+- 长按音量上来解锁你的设备的 bootloader . **在自动重启后，你的设备的数据会被清空**
+- 转到初始安装来准备. 可以跳过所有步骤，因为之后设备中的数据会被再清除一次 . **请在初始设置的时候把你的设备连接到互联网**
+- 启用开发者模式 , 然后  **然后确认“OEM解锁一栏变成灰色 ”** 这意味着  `VaultKeeper` 服务已经释放了 bootloader.
 - Your bootloader now accepts unofficial images in download mode
 
 ### Instructions
