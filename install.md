@@ -144,7 +144,7 @@ Once you have rooted your Samsung device, you can no longer upgrade your Android
 
 - **绝对不要** try to restore either `boot`, `recovery`, or `vbmeta` partitions back to stock! You can brick your device by doing so, and the only way to recover from this is to do a full Odin restore with data wipe.
 - To upgrade your device with a new firmware, **NEVER** directly use the stock `AP` tar file with reasons mentioned above. **Always** patch `AP` in the Magisk app and use that instead.
-- Never just flash only `AP`, or else Odin may shrink your `/data` filesystem size. Flash `AP` + `BL` + `CP` + `HOME_CSC` when upgrading.
+- 绝对不要仅仅刷写  `AP` 分区 , 否则 Odin 可能会压缩  `/data` 分区的大小 . 请在升级时刷写  `AP` + `BL` + `CP` + `HOME_CSC`.
 
 ## 第三方 Recovery
 
