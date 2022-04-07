@@ -7,7 +7,11 @@
 Magisk 会挂载  `tmpfs` 目录来存储一些临时数据. 对于一些有 `/sbin` 文件夹的设备, it will be chosen as it will also act as an overlay to inject binaries into `PATH`. From Android 11 onwards, the `/sbin` folder might not exist, so Magisk will randomly create a folder under `/dev` and use it as the base folder.
 
 ```
-可以使用使用`magisk --path`命令来获得 Magisk 目前正在使用的基础文件夹。例如 magisk 、magiskinit 这样的二进制文件，以及所有程序的链接都会被直接存储在这个路径中。这意味着当基础文件夹是 /sbin 时，这些二进制文件将直接存储在在PATH中。
+可以使用使用`magisk --path`命令来获得 Magisk 目前正在使用的基础文件夹。
+
+例如 magisk 、magiskinit 这样的二进制文件，以及所有程序的链接都会被直接存储在这个路径中。
+
+这意味着当基础文件夹是 /sbin 时，这些二进制文件将直接存储在在PATH中。
 MAGISKPATH=$(magisk --path)
 
 # Magisk 内部组件
