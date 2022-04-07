@@ -1,20 +1,16 @@
-# Internal Details
+# 内部细节
 
-## File Structure
+## 文件结构
 
-### Paths in "Magisk tmpfs directory"
+###  "Magisk tmpfs 文件夹" 中的路径
 
-Magisk will mount a `tmpfs` directory to store some temporary data. For devices with the `/sbin` folder, it will be chosen as it will also act as an overlay to inject binaries into `PATH`. From Android 11 onwards, the `/sbin` folder might not exist, so Magisk will randomly create a folder under `/dev` and use it as the base folder.
+Magisk 会挂载  `tmpfs` 目录来存储一些临时数据. 对于一些有 `/sbin` 文件夹的设备, it will be chosen as it will also act as an overlay to inject binaries into `PATH`. From Android 11 onwards, the `/sbin` folder might not exist, so Magisk will randomly create a folder under `/dev` and use it as the base folder.
 
 ```
-# In order to get the current base folder Magisk is using,
-# use the command `magisk --path`.
-# Binaries like magisk, magiskinit, and all symlinks to
-# applets are directly stored in this path. This means when
-# this is /sbin, these binaries will be directly in PATH.
+可以使用使用`magisk --path`命令来获得 Magisk 目前正在使用的基础文件夹。例如 magisk 、magiskinit 这样的二进制文件，以及所有程序的链接都会被直接存储在这个路径中。这意味着当基础文件夹是 /sbin 时，这些二进制文件将直接存储在在PATH中。
 MAGISKPATH=$(magisk --path)
 
-# Magisk internal stuffs
+# Magisk 内部组件
 MAGISKTMP=$MAGISKBASE/.magisk
 
 # Magisk's BusyBox directory. Within this folder stores
