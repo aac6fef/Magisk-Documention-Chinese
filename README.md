@@ -13,4 +13,4 @@
 - [内部细节](details.md)
 - [Android 启动过程](boot.md)
  ## Thanks
- [@RogerNB666](https://github.com/RogerNB666) : 标准格式，完善翻译
+ [Roger Zhang](https://github.com/RogerNB666) : 标准格式，完善翻译
