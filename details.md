@@ -82,7 +82,7 @@ DATABIN=$SECURE_DIR/magisk
 
 ```
 
-## Magisk Booting Process
+## Magisk 启动进程
 
 ### Pre-Init
 
@@ -112,12 +112,12 @@ Usually, system properties are designed to only be updated by `init` and read-on
 - `on property:foo=bar` actions registered in `*.rc` scripts will not be triggered if property changes does not go through `property_service`. The default set property behavior of `resetprop` matches `setprop`, which **WILL** trigger events (implemented by first deleting the property then set it via `property_service`). There is a flag `-n` to disable it if you need this special behavior.
 - persist properties (props that starts with `persist.`, like `persist.sys.usb.config`) are stored in both `prop_area` and `/data/property`. By default, deleting props will **NOT** remove it from persistent storage, meaning the property will be restored after the next reboot; reading props will **NOT** read from persistent storage, as this is the behavior of `getprop`. With the flag `-p`, deleting props will remove the prop in **BOTH** `prop_area` and `/data/property`, and reading props will be read from **BOTH** `prop_area` and persistent storage.
 
-## SELinux Policies
+## SELinux规则
 
-Magisk will patch the stock `sepolicy` to make sure root and Magisk operations can be done in a safe and secure way. The new domain `magisk` is effectively permissive, which is what `magiskd` and all root shell will run in. `magisk_file` is a new file type that is setup to be allowed to be accessed by every domain (unrestricted file context).
+Magisk将对当前的的`sepolicy`进行修补，以确保root和Magisk的操作能够以安全的方式运行。新的域`magisk`实际上是宽容模式，这就是`magiskd`和所有root shell将运行的地方。`magisk_file`是一个新的文件类型，被设置为允许被每个域访问（不受限制的文件上下文）。
 
-Before Android 8.0, all allowed su client domains are allowed to directly connect to `magiskd` and establish connection with the daemon to get a remote root shell. Magisk also have to relax some `ioctl` operations so root shells can function properly.
+在Android 8.0之前，所有被允许的su客户域都被允许直接连接到`magiskd`，并与守护进程建立连接，以获得远程root shell。Magisk还必须放宽一些`ioctl`操作，以便root shell能够正常运行。
 
-After Android 8.0, to reduce relaxation of rules in Android's sandbox, a new SELinux model is deployed. The `magisk` binary is labelled with `magisk_exec` file type, and processes running as allowed su client domains executing the `magisk` binary (this includes the `su` command) will transit to `magisk_client` by using a `type_transition` rule. Rules strictly restrict that only `magisk` domain processes are allowed to attribute files to `magisk_exec`. Direct connection to sockets of `magiskd` are not allowed; the only way to access the daemon is through a `magisk_client` process. These changes allow us to keep the sandbox intact, and keep Magisk specific rules separated from the rest of the policies.
+在安卓8.0之后，为了减少安卓沙盒中规则的宽容模式，部署了一个新的SELinux模型。`magisk`二进制文件被标记为`magisk_exec`文件类型，以允许的su客户域运行的进程执行`magisk`二进制文件（这包括`su`命令）将通过使用`type_transition`规则转到`magisk_client`。规则严格限制只有`magisk`域进程可以将文件归属到`magisk_exec`。不允许直接连接到`magiskd`的套接字；访问守护进程的唯一方法是通过`magisk_client`进程。这些变化使我们能够保持沙盒的完整性，并使Magisk的特定规则与其他策略分开。
 
-The full set of rules can be found in `magiskpolicy/rules.cpp`.
+整套规则可以在`magiskpolicy/rules.cpp`中找到。
