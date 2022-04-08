@@ -1,17 +1,17 @@
 <!-- vim-markdown-toc GFM -->
 
-- [安装](#安装)
-  - [安装前的一些准备](#安装前的一些准备)
-  - [修改镜像](#修改镜像)
-  - [卸载](#卸载)
-  - [Recovery 中的 Magisk](#recovery-中的-magisk)
-  - [Samsung (System-as-root)](#samsung-system-as-root)
-    - [在安装前请确认](#在安装前请确认)
-    - [解锁 Bootloader](#解锁-bootloader)
-    - [介绍](#介绍)
-    - [升级系统](#升级系统)
-    - [注意](#注意)
-  - [第三方 Recovery](#第三方-recovery)
+* [安装](#安装)
+	* [安装前的一些准备](#安装前的一些准备)
+	* [修改镜像](#修改镜像)
+	* [卸载](#卸载)
+	* [Recovery 中的 Magisk](#recovery-中的-magisk)
+	* [Samsung (System-as-root)](#samsung-system-as-root)
+		* [在安装前请确认](#在安装前请确认)
+		* [解锁 Bootloader](#解锁-bootloader)
+		* [介绍](#介绍)
+		* [升级系统](#升级系统)
+		* [注意](#注意)
+	* [第三方 Recovery](#第三方-recovery)
 
 <!-- vim-markdown-toc -->
 
@@ -87,7 +87,7 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 
 如果你的设备的 boot 分区中没有 ramdisk, Magisk 只能劫持 recovery 分区. 对于这些设备, 你需要在每次你想要使用 Magisk 的时候 **重启到 recovery** .
 
-当 Magisk 劫持 recovery 时, 有一个热键能让你 _真正_ 启动到恢复模式 . 每个设备都有进入 recovery 的特殊热键, 比如： Galaxy S10 的热键是 (电源键 + Bixby 键 + 音量上). 你可以在网上搜索来获得你的设备的热键 . As soon as you press the key combo and the device vibrates with a splash screen, release all buttons to boot into Magisk. If you decide to boot into the actual recovery mode, **long press volume up until you see the recovery screen**.
+当 Magisk 劫持 recovery 时, 有一个热键能让你  _真正_ 启动到恢复模式 . 每个设备都有进入recovery的特殊热键, 比如： Galaxy S10 的热键是  (电源键 + Bixby键 + 音量上). 你可以在网上搜索来获得你的设备的热键 . As soon as you press the key combo and the device vibrates with a splash screen, release all buttons to boot into Magisk. If you decide to boot into the actual recovery mode, **long press volume up until you see the recovery screen**.
 
 综上所述, 在 recovery 中 安装 Magisk 后 **(从关机状态开始)**:
 
@@ -99,8 +99,9 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 
 ## Samsung (System-as-root)
 
+
 > 译者注：以下部分是 **Samsung Only**，其他设备用户请忽略  
-> 如果你正在使用一台**低于安卓 9**的三星设备，请不要参考以下内容
+> 如果你正在使用一台**低于安卓 9**的三星设备，请不要参考以下内容   
 
 ### 在安装前请确认
 
@@ -117,23 +118,23 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 - 长按音量上来解锁你的设备的 bootloader . **在自动重启后，你的设备的数据会被清空**
 - 转到初始安装来准备. 可以跳过所有步骤，因为之后设备中的数据会被再清除一次 . **请在初始设置的时候把你的设备连接到互联网**
 - 启用开发者模式 , 然后 **然后确认“OEM 解锁一栏变成灰色 ”** 这意味着 `VaultKeeper` 服务已经释放了 bootloader.
-- 你现在就可以刷入非官方的镜像了
+- Your bootloader now accepts unofficial images in download mode
 
 ### 介绍
 
-- 使用 [samfirm.js](https://github.com/jesec/samfirm.js)或 [Frija](https://forum.xda-developers.com/s10-plus/how-to/tool-frija-samsung-firmware-downloader-t3910594), 或 [Samloader](https://forum.xda-developers.com/s10-plus/how-to/tool-samloader-samfirm-frija-replacement-t4105929) 来直接从三星的服务器下载你的设备的最新固件。
-- 解压固件，然后将 `AP` 包复制到你的设备 . 它的名字一般是 `AP_[device_model_sw_ver].tar.md5`
-- Press the **Install** button in the Magisk card
-- If your device does **NOT** have boot ramdisk, check the **"Recovery Mode"** option
-- Choose **"Select and Patch a File"** in method, and select the `AP` tar file
-- Start the installation, and copy the patched tar file to your PC using ADB:<br>
+- 使用  [samfirm.js](https://github.com/jesec/samfirm.js)或 [Frija](https://forum.xda-developers.com/s10-plus/how-to/tool-frija-samsung-firmware-downloader-t3910594), 或  [Samloader](https://forum.xda-developers.com/s10-plus/how-to/tool-samloader-samfirm-frija-replacement-t4105929) 来直接从三星的服务器下载你的设备的最新固件。
+- 解压固件，然后将  `AP` 包复制到你的设备 . 它的名字一般是  `AP_[device_model_sw_ver].tar.md5`
+- 在 Magisk 主界面的卡片中点击 **安装**
+- 如果你的设备 **没有** 启动 ramdisk, 请点选 **"恢复模式"** 选项
+- 在选项中选择 **"选择并修补文件"**, 然后选择 `AP` tar 包
+- 开始安装,然后使用 ADB 把修补过的文件复制到你的电脑:<br>
   `adb pull /sdcard/Download/magisk_patched_[random_strings].tar`<br>
-  **DO NOT USE MTP** as it is known to corrupt large files.
-- Reboot to download mode. Open Odin on your PC, and flash `magisk_patched.tar` as `AP`, together with `BL`, `CP`, and `CSC` (**NOT** `HOME_CSC` because we want to **wipe data**) from the original firmware.
-- Your device should reboot automatically once Odin finished flashing. Agree to do a factory reset if asked.
-- If your device does **NOT** have boot ramdisk, reboot to recovery now to enable Magisk (reason stated in [Magisk in Recovery](#magisk-in-recovery)).
+  **不要使用MTP** MTP 可能会损坏大文件 .
+- 重启到下载模式.在你的电脑上打开 odin , 将 `magisk_patched.tar` 输入 `AP`, `BL`, `CP`, 以及 `CSC` (**不要刷入** `HOME_CSC` 因为我们需要从原生固件  **清除数据**)。
+- 在完成刷写后，你的设备会自动重启 . 如果需要回复出厂设置，请允许.
+- 如果你的设备 **没有** 启动 ramdisk, reboot to recovery now to enable Magisk (reason stated in [Magisk in Recovery](#magisk-in-recovery)).
 - Install the Magisk app you've already downloaded and launch the app. It should show a dialog asking for additional setup.
-- Let the app do its job and automatically reboot the device. Voila!
+- 让 Magisk app 自动完成之后的步骤然后重启 .享受吧!
 
 ### 升级系统
 
@@ -143,7 +144,7 @@ Once you have rooted your Samsung device, you can no longer upgrade your Android
 
 - **绝对不要** try to restore either `boot`, `recovery`, or `vbmeta` partitions back to stock! You can brick your device by doing so, and the only way to recover from this is to do a full Odin restore with data wipe.
 - To upgrade your device with a new firmware, **NEVER** directly use the stock `AP` tar file with reasons mentioned above. **Always** patch `AP` in the Magisk app and use that instead.
-- 绝对不要仅仅刷写 `AP` 分区 , 否则 Odin 可能会压缩 `/data` 分区的大小 . 请在升级时刷写 `AP` + `BL` + `CP` + `HOME_CSC`.
+- 绝对不要仅仅刷写  `AP` 分区 , 否则 Odin 可能会压缩  `/data` 分区的大小 . 请在升级时刷写  `AP` + `BL` + `CP` + `HOME_CSC`.
 
 ## 第三方 Recovery
 
