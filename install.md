@@ -118,7 +118,7 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 - 长按音量上来解锁你的设备的 bootloader . **在自动重启后，你的设备的数据会被清空**
 - 转到初始安装来准备. 可以跳过所有步骤，因为之后设备中的数据会被再清除一次 . **请在初始设置的时候把你的设备连接到互联网**
 - 启用开发者模式 , 然后 **然后确认“OEM 解锁一栏变成灰色 ”** 这意味着 `VaultKeeper` 服务已经释放了 bootloader.
-- Your bootloader now accepts unofficial images in download mode
+- 你的 bootloader 现在在下载模式接受第三方 rom。
 
 ### 介绍
 
@@ -138,12 +138,12 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 
 ### 升级系统
 
-Once you have rooted your Samsung device, you can no longer upgrade your Android OS through OTA. To upgrade your device's OS, you have to manually download the new firmware zip file and go through the same `AP` patching process written in the previous section. **The only difference here is in the Odin flashing step: do NOT use the `CSC` tar, but instead use the `HOME_CSC` tar as we are performing an upgrade, not the initial install**.
+一旦你 root 了你的三星设备, 你就不能通过OTA更新你的 Android 系统. 要想升级你的设备的系统, 你需要手动下载最新的固件，然后采用大致和上文一样的刷写方式 **两者唯一的不同就是 Odin 的刷写步骤: 不要使用 `CSC` 的tar包, 而是使用 `HOME_CSC` 的 tar 包，因为我们是想要升级, 而不是初始安装**.
 
 ### 注意
 
 - **绝对不要** try to restore either `boot`, `recovery`, or `vbmeta` partitions back to stock! You can brick your device by doing so, and the only way to recover from this is to do a full Odin restore with data wipe.
-- To upgrade your device with a new firmware, **NEVER** directly use the stock `AP` tar file with reasons mentioned above. **Always** patch `AP` in the Magisk app and use that instead.
+- To upgrade your device with a new firmware, **NEVER** directly use the stock `AP` tar file with reasons mentioned above. **一定要**在Magisk 中修补 `AP` 并且刷入修改后的 `AP`。
 - 绝对不要仅仅刷写  `AP` 分区 , 否则 Odin 可能会压缩  `/data` 分区的大小 . 请在升级时刷写  `AP` + `BL` + `CP` + `HOME_CSC`.
 
 ## 第三方 Recovery
