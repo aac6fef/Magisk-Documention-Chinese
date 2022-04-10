@@ -12,5 +12,6 @@
 - [Magisk 工具](tools.md)
 - [内部细节](details.md)
 - [Android 启动过程](boot.md)
+ 
  ## Thanks
  [Roger Zhang](https://github.com/RogerNB666) : 标准格式，完善翻译
