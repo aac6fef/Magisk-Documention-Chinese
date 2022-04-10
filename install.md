@@ -87,13 +87,13 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 
 如果你的设备的 boot 分区中没有 ramdisk, Magisk 只能劫持 recovery 分区. 对于这些设备, 你需要在每次你想要使用 Magisk 的时候 **重启到 recovery** .
 
-当 Magisk 劫持 recovery 时, 有一个热键能让你  _真正_ 启动到恢复模式 . 每个设备都有进入recovery的特殊热键, 比如： Galaxy S10 的热键是  (电源键 + Bixby键 + 音量上). 你可以在网上搜索来获得你的设备的热键 . As soon as you press the key combo and the device vibrates with a splash screen, release all buttons to boot into Magisk. If you decide to boot into the actual recovery mode, **long press volume up until you see the recovery screen**.
+当 Magisk 劫持 recovery 时, 有一个热键能让你  _真正_ 启动到恢复模式 . 每个设备都有进入recovery的特殊热键, 比如： Galaxy S10 的热键是  (电源键 + Bixby键 + 音量上). 你可以在网上搜索来获得你的设备的热键 . 当你按下热键时，屏幕会显示画面, 放开所有按键来进入 Magisk. 如果你想要真正进入恢复模式, **长按音量上来进入 recovery**.
 
 综上所述, 在 recovery 中 安装 Magisk 后 **(从关机状态开始)**:
 
 - **(正常开机) → (没有 Magisk 的 Android 系统)**
-- **(Recovery Key Combo) → (Splash screen) → (Release all buttons) → (System with Magisk)**
-- **(Recovery Key Combo) → (Splash screen) → (Long press volume up) → (Recovery Mode)**
+- **(Recovery 热键) → (屏幕画面) → (放开所有按键) → (具有 Magisk 的 Android 系统)**
+- **(Recovery 热键) → (屏幕画面) → (长按音量上) → (恢复模式)**
 
 (注释: 你 **不能** 在这种情况下用第三方 recovry 来安装 Magisk !!)
 
@@ -142,8 +142,8 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 
 ### 注意
 
-- **绝对不要** try to restore either `boot`, `recovery`, or `vbmeta` partitions back to stock! You can brick your device by doing so, and the only way to recover from this is to do a full Odin restore with data wipe.
-- To upgrade your device with a new firmware, **NEVER** directly use the stock `AP` tar file with reasons mentioned above. **一定要**在Magisk 中修补 `AP` 并且刷入修改后的 `AP`。
+- **绝对不要** 尝试将 `boot`, `recovery`或 `vbmeta` 分区恢复到初始版本! 这会损坏你的设备, 将你的设备的系统分区恢复到出厂版本的唯一方法是用 Odin 将所有分区完全刷写一遍。
+- 如果你想要用更新的固件升级你的设备,因为上文提到的原因 **绝对不要** 直接使用原始的 `AP` tar 包. **一定要**在Magisk 中修补 `AP` 并且刷入修改后的 `AP`。
 - 绝对不要仅仅刷写  `AP` 分区 , 否则 Odin 可能会压缩  `/data` 分区的大小 . 请在升级时刷写  `AP` + `BL` + `CP` + `HOME_CSC`.
 
 ## 第三方 Recovery
