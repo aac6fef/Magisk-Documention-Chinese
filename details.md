@@ -10,7 +10,7 @@ Magisk 会挂载  `tmpfs` 目录来存储一些临时数据. 对于一些有 `/s
 可以使用使用`magisk --path`命令来获得 Magisk 目前正在使用的基础文件夹。
 例如 magisk 、magiskinit 这样的二进制文件，以及所有程序的链接都会被直接存储在这个路径中。
 这意味着当基础文件夹是 /sbin 时，这些二进制文件将直接存储在在PATH中。
-MAGISKPATH=$(magisk --path)
+MAGISKBASE=$(magisk --path)
 
 # Magisk 内部组件
 MAGISKTMP=$MAGISKBASE/.magisk
