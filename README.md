@@ -17,3 +17,6 @@
 ## Thanks
 
 [Roger Zhang](https://github.com/RogerNB666) : 标准格式，完善翻译
+
+
+# 官方文档同步状态
