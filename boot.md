@@ -120,6 +120,6 @@ These types are ordered chronologically by the time they were first available.
 - **Type III**: Late 2018 - 2019 devices that are A-only. **The worst type of device to ever exist as far as Magisk is concerned.**
 - **Type IV**: All devices using Boot Method C are Type IV. A/B Type IV ramdisk can boot into either Android or recovery based on info from bootloader; A-only Type IV ramdisk can only boot into Android.
 
-Further details on Type III devices: Magisk is always installed in the ramdisk of a boot image. For all other device types, because their `boot` partition have ramdisk included, Magisk can be easily installed by patching boot image through the Magisk app or flash zip in custom recovery. However for Type III devices, they are **limited to install Magisk into the `recovery` partition**. Magisk will not function when booted normally; instead Type III device owners have to always reboot to recovery to maintain Magisk access.
+关于第三类设备的进一步细节。Magisk总是安装在启动镜像的ramdisk中。对于所有其他类型的设备，因为它们的 `启动` 分区包含了RAMDisk，Magisk可以很容易地通过Magisk应用程序修补启动镜像或在第三方 recovery 的 flash zip 来安装。但是，对于采取第三类启动方式的设备，他们会限制将Magisk安装到 `recovery` 分区。Magisk在正常启动时不会发挥作用；相反，第三类设备的所有者必须始终重新启动到`recovery`分区，以保持Magisk的访问。
 
-Some Type III devices' bootloader will still accept and provide `initramfs` that was manually added to the `boot` image to the kernel (e.g. some Xiaomi phones), but many device don't (e.g. Samsung S10, Note 10). It solely depends on how the OEM implements its bootloader.
+一些采取第三类启动方式的设备的引导程序仍然会接受并提供手动添加到 `boot`镜像中的 `initramfs`到内核中（例如一些小米手机），但许多设备不接受（例如三星S10、Note 10）。这完全取决于OEM如何实现它的bootloader。
