@@ -98,27 +98,25 @@ SAR 是 [Project Treble](https://source.android.com/devices/architecture#hidl) �
 
 让我们回到 Google 第一次设计 A/B 的时候. 如果使用 SAR (当时只存在启动方法B), 内核不需要使用  `initramfs` 来启动  Android (因为根目录是 `system` ）这意味着我们可以采用一种聪明的做法，就是我们可以将恢复 `ramdisk`  (包含最小 Linux 环境 ) 放入 `boot` 中, 并且移除 `recovery`, 然后让内核根据 bootloader 提供的信息，决定每次启动的根目录  (ramdisk 或 `system`) 。
 
-随着时间的推移， Android 版本从 7.1 逐渐更新到 10 , Google 引入了 [动态分区](https://source.android.com/devices/tech/ota/dynamic_partitions/implement)。 这对 SAR 来说是个坏消息 , 因为  Linux 内核不能直接理解新的分区格式 , 这导致了设备无法直接将 `system` 挂载为根目录 . This is when they came up with Boot Method C: always boot into `initramfs`, and let userspace handle the rest of booting. This includes deciding whether to boot into Android or recovery, or as they officially call: `USES_RECOVERY_AS_BOOT`.
+随着时间的推移， Android 版本从 7.1 逐渐更新到 10 , Google 引入了 [动态分区](https://source.android.com/devices/tech/ota/dynamic_partitions/implement)。 这对 SAR 来说是个坏消息 , 因为  Linux 内核不能直接理解新的分区格式 , 这导致了设备无法直接将 `system` 挂载为根目录 . 他们提出了方法 C: 先将 `initramfs `作为根目录，然后让 userspace 处理剩下的启动步骤，包括决定要启动到 Android 或 Recovery，Google 官方称之为 `USES_RECOVERY_AS_BOOT`。
 
-Some modern devices using A/B with 2SI also comes with `recovery_a/_b` partitions. This is officially supported with Google's standard. These devices will then only use the boot ramdisk to boot into Android as recovery is stored on a separate partition.
+一些使用 A/B 和 2SI 的现代设备带有 recovery_a/_b 分区，这是 Google 官方支持的标准。这些设备将只使用 boot ramdisk 启动到 Android，因为 recovery 存储在一个单独的分区。
 
-## Piecing Things Together
+有了以上的信息，现在我们可以把所有的 Android 设备分为这几种不同的类型。 作者：Lynnrin https://www.bilibili.com/read/cv9655068?spm_id_from=333.999.0.0 出处：bilibili:
 
-With all the knowledge above, now we can categorize all Android devices into these different types:
-
-Type | Boot Method | Partition | 2SI | Ramdisk in `boot`
+种类 | 启动方式 | 分区类型 | 是否使用2SI |  `boot`中的 ramdisk
 :---: | :---: | :---: | :---: | :---:
-**I** | A | A-only | No | `boot` ramdisk
-**II** | B | A/B | Any | `recovery` ramdisk
-**III** | B | A-only | Any | ***N/A***
-**IV** | C | Any | Yes | Hybrid ramdisk
+**I** | A | A-only | 否 | `boot` ramdisk
+**II** | B | A/B | 两者均可 | `recovery` ramdisk
+**III** | B | A-only | 两者均可 | ***N/A***
+**IV** | C | Any | 是 | 混合 ramdisk
 
-These types are ordered chronologically by the time they were first available.
+这些类型按时间顺序排列，以它们首次出现的时间为准。
 
-- **Type I**: Good old legacy ramdisk boot
-- **Type II**: Legacy A/B devices. Pixel 1 is the first device of this type, being both the first A/B and SAR device
-- **Type III**: Late 2018 - 2019 devices that are A-only. **The worst type of device to ever exist as far as Magisk is concerned.**
-- **Type IV**: All devices using Boot Method C are Type IV. A/B Type IV ramdisk can boot into either Android or recovery based on info from bootloader; A-only Type IV ramdisk can only boot into Android.
+- **种类 I**: legacy ramdisk 启动 
+- **种类 II**: 老的 A/B 设备，Pixel 1 是第一款此类型设备，是第一款使用了 A/B 和 SAR 设备。 
+- **种类 III**: 2018年末-2019年末的设备大多都是 A-Only，** 就 Magisk 而言，是有史以来最糟的一种设备 **
+- **种类 IV**: 所有使用方法 C 的设备都属于类型四，使用 A/b 分区的类型四设备的 ramdisk 可以根据 Bootloader 的信息启动到 Android 或 Recovery，A-Only 的类型四设备的 ramdisk 只能启动到 Android
 
 关于第三类设备的进一步细节。Magisk总是安装在启动镜像的ramdisk中。对于所有其他类型的设备，因为它们的 `启动` 分区包含了RAMDisk，Magisk可以很容易地通过Magisk应用程序修补启动镜像或在第三方 recovery 的 flash zip 来安装。但是，对于采取第三类启动方式的设备，他们会限制将Magisk安装到 `recovery` 分区。Magisk在正常启动时不会发挥作用；相反，第三类设备的所有者必须始终重新启动到`recovery`分区，以保持Magisk的访问。
 
