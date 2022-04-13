@@ -32,14 +32,14 @@
 
 - [常规] MagiskHide从Magisk中移除
 - [通用] 支持Android 12
-- [通用] 支持不支持32位和只运行64位代码的设备
+- [通用] 支持纯64位的的设备
 - [一般] 更新BusyBox到1.34.1
 - [Zygisk] 引入新功能。Zygisk
 - [Zygisk] 引入DenyList功能，在用户选择的进程中恢复Magisk功能。
 - [MagiskBoot] 支持修补32位内核zImages
 - [MagiskBoot] 支持引导图像头V4
 - [MagiskBoot] 支持从dtb bootargs中打出`skip_initramfs`的补丁。
-- [MagiskBoot] 增加新的环境变量`PATCHVBMETAFLAG`，以配置是否要修补vbmeta标志。
+- [MagiskBoot] 增加新的环境变量`PATCHVBMETAFLAG`，以配置决定是否要修补vbmeta标志。
 - [MagiskInit] 支持从`/system/etc`加载fstab（Pixel 6需要）。
 - [MagiskInit] 支持`/proc/bootconfig`来加载启动配置。
 - [MagiskInit] 更好的支持某些Meizu设备
