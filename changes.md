@@ -69,7 +69,7 @@
 - [通用] 几个`sepolicy.rule`复制/安装的修复
 - [MagiskPolicy] 删除不必要的sepolicy规则
 - [MagiskHide] 更新软件包和进程名称的验证逻辑
-- [MagiskHide] 一些防止zygote死锁的变化
+- [MagiskHide] 一些防止zygote锁死的变化
 
 ### v22.1
 
