@@ -20,428 +20,429 @@
 
 ### v8.0.3
 
-- Switch to the new Magisk Module Repo setup in preparation to allow 3rd party repos
-- Add tapjacking protection on Superuser request dialog
-- Stability changes and bug fixes
+- 切换到新的Magisk模块仓库设置，准备允许第三方仓库。
+- 在超级用户请求对话框中增加窃听保护功能
+- 稳定性变化和错误修复
 
 ### v8.0.2
 
-- Fix an issue with requesting permission on devices older than Android 10
-- Make more files download through CDN
+- 修复在Android 10以上的设备上请求权限的问题
+- 让更多的文件通过CDN下载
 
 ### v8.0.1
 
-- Fix `vbmeta.img` patching for Samsung `AP.tar` files. This fixes bootloops on devices like Galaxy S10 after flashing updated AP files.
-- Properly truncate existing files before writing to prevent corrupted files
-- Prevent a possible UI loop when device ran into very low memory
-- Switch to use JSDelivr CDN for several files
+- 修复`vbmeta.img`对三星`AP.tar`文件的修补。这修复了Galaxy S10等设备在刷写更新的AP文件后的启动循环。
+- 在写入前正确地截断现有文件，以防止文件被破坏
+- 防止在设备可用内存非常低时可能出现的UI循环
+- 转换到使用JSDelivr CDN来处理几个文件
 
 ### v8.0.0
 
-- 100% full app rewrite! Will highlight functional changes below.
-- Add detailed device info in home screen to assist user installation
-- Support Magisk v21.0 communication protocol
-- Support patching modern Samsung `AP.tar`
+- 100%全面重写应用程序! 下面将强调功能上的变化。
+- 在主屏幕上添加详细的设备信息，协助用户安装
+- 支持Magisk v21.0通信协议
+- 支持修补现代三星`AP.tar`。
 
 ### v7.5.1
 
-- Fix toggling app components in MagiskHide screen
-- Update translations
+- 修复在MagiskHide界面切换应用程序组件的问题
+- 更新翻译
 
 ### v7.5.0
 
-- Support new MagiskSU communication method (ContentProvider)
-- Fix several issues with hidden stub APK
-- Support using BiometricPrompt (face unlock)
+- 支持新的MagiskSU通信方法（ContentProvider）。
+- 修复隐藏APK的几个问题
+- 支持使用BiometricPrompt（面部解锁）。
 
 ### v7.4.0
 
-- Hide Magisk Manager with stub APKs on Android 9.0+
-- Allow customizing app name when hiding Magisk Manager
-- Generate random keys to sign the hidden Magisk Manager to prevent signature detections
-- Fix fingerprint UI infinite loop
+- 在安卓9.0以上版本中用代理APK隐藏Magisk管理器
+- 隐藏Magisk Manager时允许自定义应用程序的名称
+- 生成随机密钥来签署隐藏的Magisk Manager，以防止签名检测。
+- 修复指纹用户界面的无限循环
 
 ### v7.3.5
 
-- Sort installed modules by name
-- Better pre-5.0 support
-- Fix potential issues when patching tar files
+- 按名称排列已安装的模块
+- 更好地支持5.0之前的版本
+- 修复修补tar文件时的潜在问题
 
 ### v7.3.4
 
-- App is now fully written in Kotlin!
-- New downloading system
-- Add new "Recovery Mode" to Advanced Settings
+- 应用程序现在完全由Kotlin编写!
+- 新的下载系统
+- 在高级设置中增加新的 "恢复模式"
 
 ### v7.3.0/1/2
 
-- HUGE code base modernization, thanks @diareuse!
-- More sweet changes coming in the future!
-- Reboot device using proper API (no more abrupt reboot)
-- New floating button in Magisk logs to go to bottom
+- 巨大的代码库现代化，感谢@Diareuse!
+- 未来会有更多更新小樱桃！
+- 使用适当的API重启设备（不再有突然的重启）。
+- Magisk日志中新的浮动按钮，可以转到底部
 
 ### v7.2.0
 
-- Huge UI overhaul
-- More sweet changes coming in the future!
+- 巨大的用户界面大修
+- 未来会有更多更新小樱桃！
 
 ### v7.1.2
 
-- Support patching Samsung AP firmware
-- Much better module downloading mechanism
+- 支持对三星AP固件进行修补
+- 更好的模块下载机制
 
 ### v7.1.1
 
-- Fix a bug that causes some modules using new format not showing up
+- 修复了一个导致一些使用新格式的模块不显示的错误
 
 ### v7.1.0
 
-- Support the new module format
-- Support per-application component granularity MagiskHide targets (only on v19+)
-- Ask for fingerprint before deleting rules if enabled
-- Fix the bug that causes repackaging to lose settings
-- Several UI fixes
+- 支持新的模块格式
+- 支持每个应用组件粒度的MagiskHide目标（仅在v19以上版本）。
+- 如果启用，在删除规则前要求提供指纹
+- 修复了导致重新打包时丢失设置的错误
+- 几个UI修复
 
 ### v7.0.0
 
-- Major UI redesign!
-- Render Markdown natively (no more buggy WebView!)
-- Support down to Android 4.1 (native Magisk only support Android 4.2 though)
-- Significantly improve Magisk log disply performance
-- Fix post OTA scripts for A/B devices
-- Reduce memory usages when verifying and signing boot image
-- Drop support for Magisk lower than v18.0
+- 重新设计主要的用户界面
+- 原生渲染Markdown（不再有错误的WebView！）。
+- 支持低至安卓4.1系统（虽然原生Magisk只支持安卓4.2系统）
+- 大幅提高Magisk日志的显示性能
+- 修复A/B设备的OTA后脚本
+- 减少验证和签署启动镜像时的内存使用量
+- 取消对低于18.0版本的Magisk的支持
 
 ### v6.1.0
 
-- Introduce new downloading methods: no longer uses buggy system Download Manager
-- Introduce many new notifications for better user experience
-- Add support for Magisk v18.0
-- Change application name to "Manager" after hiding(repackaging) to prevent app name detection
-- Add built-in systemless hosts module (access in settings)
-- Auto launch the newly installed app after hiding(repackaging) and restoring Magisk Manager
-- Fix bug causing incomplete module.prop in modules to have improper UI
+- 引入新的下载方法：不再使用有问题的系统下载管理器
+- 引入许多新的通知，以改善用户体验
+- 增加对Magisk v18.0的支持
+- 隐藏（重新打包）后，将应用程序名称改为 "管理器"，以防止应用程序名称被发现
+- 增加内置的无系统主机模块（在设置中访问）。
+- 隐藏（重新打包）和恢复Magisk Manager后，自动启动新安装的应用程序
+- 修复了模块中不完整的module.prop导致UI不正确的问题
 
 ### v6.0.1
 
-- Update to use new online module's organizing method
-- When fingerprint authentication is enabled, toggling root permissions in "Superuser" section now requires fingerprint beforehand
-- Fix crashes when entering MagiskHide section on some devices
-- Remove support to Magisk version lower than v15.0
-- Ask storage permissions before patching stock boot image
-- Update dark theme CardView color
+- 更新以使用新的在线模块的组织方式
+- 启用指纹认证时，在 "超级用户 "部分切换root权限，现在需要事先输入指纹
+- 修复在某些设备上进入MagiskHide部分时的崩溃问题
+- 移除对低于v15.0的Magisk版本的支持
+- 在修补启动镜像前请求存储权限
+- 更新深色主题的CardView颜色
 
 ### v6.0.0
 
-- Update to latest AndroidX support library
-- Fix crashes when online repos contain incomplete metadata
-- Optimize BootSigner to use as little memory as possible, prevent OutOfMemoryError
-- Support new communication scheme between Magisk v17.2 and Magisk Manager
-- Enable excessive obfuscation to prevent APK analysis root detections (still not 100% obfuscated due to backwards compatibility with stable channel)
+- 更新到最新的AndroidX支持库
+- 修复在线仓库包含不完整元数据时的崩溃问题
+- 优化BootSigner，尽量少用内存，防止OutOfMemoryError
+- 支持Magisk v17.2和Magisk Manager之间的新通信方案
+- 启用过度混淆功能，防止APK分析 root 检测（由于向后兼容稳定通道，仍未100%混淆）
 
 ### v5.9.0/v5.9.1
 
-- No more on boot notifications
-- Support new mechanism for installing to inactive slot for OTAs on A/B devices
-- Fix restore Magisk Manager settings on Android P
-- Verify existing file checksums to prevent unnecessary re-downloads
-- Update SNET extension to use new Google API, fix "Invalid Response" errors
-- Move fingerprint settings to magisk database to prevent the settings to be easily removed
-- Fingerprint settings are now guarded with fingerprint authentications before it can get changed
-- Prevent any files to be downloaded to /sdcard/MagiskManager
+- 不再有开机时的通知
+- 支持在A/B设备上为OTA安装到非活动插槽的新机制
+- 修复恢复Android P上的Magisk Manager设置
+- 验证现有的文件校验和，防止不必要的重新下载
+- 更新SNET扩展以使用新的谷歌API，修复 "无效响应 "错误
+- 将指纹设置移至Magisk数据库，防止设置被轻易删除
+- 指纹设置在被修改前会受到指纹认证的保护
+- 防止任何文件被下载到/sdcard/MagiskManager。
 
 ### v5.8.3
 
-- Prevent invalid modules in the online repo crashing the app
-- Update Stable and Beta channel URLs
+- 防止在线版本中的无效模块使应用程序崩溃
+- 更新稳定版和测试版频道的URLs
 
 ### v5.8.1
 
-- Fix a bug that cause the root shell initializer not running in BusyBox environment
+- 修复一个导致BusyBox环境下root shell初始化器无法运行的问题
 
 ### v5.8.0
 
-- Remain hidden when upgrading within repackaged Magisk Manager
-- New feature: support reconstructing a proper Magisk environment if error detected (e.g. after factory reset)
-- New uninstall method: download uninstaller and completely remove Magisk + Magisk Manager, following with a reboot
-- Hidden apps are now shown on the top of the list in MagiskHide fragment
-- Tons of under-the-hood bug fixes and improvements
+- 在重新打包的Magisk管理器内升级时保持隐藏状态
+- 新功能：如果检测到错误，支持重建一个正确的Magisk环境（例如，在出厂重置后）。
+- 新的卸载方法：下载卸载程序，完全删除Magisk + Magisk Manager，然后重新启动。
+- 隐藏的应用程序现在显示在MagiskHide片段列表的顶部
+- 大量的后台错误修复和改进
 
 ### v5.7.0
 
-- Add app shortcuts for Android 7.1+
-- Bump minimal module minMagisk requirement to 1500
-- Adjustments for new sepolicies on v16.4+
-- Fix crashes when refreshing the online repo
+- 为安卓7.1以上版本添加应用快捷方式
+- 将最小模块minMagisk要求提高到1500
+- 针对v16.4以上的新sepolicies进行调整
+- 修复刷新在线版本时的崩溃问题
 
 ### v5.6.4
 
-- Remove the blacklisted apps using SafetyNet (e.g. Pokemon GO)
+- 删除使用SafetyNet的黑名单应用程序（如Pokemon GO）。
 
 ### v5.6.3
 
-- Fix repo loading UI logic
+- 修复 repo 加载 UI 逻辑
 
 ### v5.6.2
 
-- Cleanup folders if installation failed
-- Add support for Android P
+- 安装失败时清理文件夹
+- 增加对Android P的支持
 
 ### v5.6.1
 
-- Fix database crashes on F2FS with SQLite 3.21.0+
-- Optimize several settings options
-- Use native XML for settings migration
+- 修复F2FS上SQLite 3.21.0以上版本的数据库崩溃问题
+- 优化几个设置选项
+- 使用本地XML进行设置迁移
 
 ### v5.6.0
 
-- Remove JNI requirement, Magisk Manager is now pure Java
-- Update the method of handling su database, may fix the issue that root requests won't save
-- Add the option to restore Magisk Manager after repackaging with random package name
-- Massive under-the-hood
+- 删除JNI要求，Magisk Manager现在是纯Java的。
+- 更新处理su数据库的方法，可能会解决根请求不能保存的问题
+- 增加了用随机包名重新打包后恢复Magisk Manager的选项
+- 庞大的内部结构
 
 ### v5.5.5
 
-- Fix crashes on Lollipop and some devices not following AOSP standards
+- 修复Lollipop和一些不遵循AOSP标准的设备上的崩溃问题
 
 ### v5.5.4
 
-- Fix dtbo on-boot detection, should follow configured dtbo patching behavior on Pixel 2 devices
-- Add fingerprint authentication for Superuser requests
+- 修复dtbo开机检测，应遵循Pixel 2设备上配置的dtbo补丁行为
+- 为超级用户请求添加指纹验证
 
 ### v5.5.3
 
-- Update translations
-- Update internal scripts (in sync with Magisk)
-- Minor adjustments
+- 更新翻译
+- 更新内部脚本(与Magisk同步)
+- 小幅调整
 
 ### v5.5.2
 
-- Support sorting online repos with last update
-- Fix issue that advanced installation settings won't stick
-- Prevent sudb crashing Magisk Manager
+- 支持用最后一次更新对在线存储库进行排序
+- 修复高级安装设置不能坚持的问题
+- 防止sudb使Magisk管理器崩溃的问题
 
 ### v5.5.1
-- Fix an issue in setting up superuser database, which causes some users to experience tons of root issues
+- 修复了设置超级用户数据库的问题，导致一些用户出现大量的root问题
 
 ### v5.5.0
 
-- Fix dynamic resource loading, prevent crashes when checking SafetyNet
-- Update SignAPK to use very little RAM for supporting old devices
-- Support settings migration after hiding Magisk Manager
-- Add reboot menu in modules section
-- Add dark theme to superuser request dialogs
-- Properly handle new HIGHCOMP and add recommended KEEPVERITY and KEEPFORCEENCRYPT flags for installation
-- Support new paths for v14.6
-- Massive improvements in repackaging Magisk Manager
+- 修复动态资源加载，防止检查SafetyNet时崩溃
+- 更新SignAPK，使其使用极少的内存以支持旧设备
+- 支持隐藏Magisk Manager后的设置迁移
+- 在模块部分添加重启菜单
+- 在超级用户请求对话框中增加黑暗主题
+- 正确处理新的HIGHCOMP，增加推荐的KEEPVERITY和KEEPFORCEENCRYPT标记，用于安装
+- 支持14.6版的新路径
+- 对重新包装Magisk Manager进行了大规模的改进
 
 ### v5.4.3
 
-- Add flags to intent to prevent crashes
-- Update translations
+- 在意图中添加标志，以防止崩溃
+- 更新翻译
 
 ### v5.4.2
 
-- Support new paths and setup of v14.5
-- Support repackaging Magisk Manager for hiding (only works on v14.5+)
-- Support hardlinking global su database into app data
-- Support signing boot images (AVB 1.0)
-- Update app icon to adaptive icons
-- Remove app from MagiskHide list if uninstalled
-- Add support to save detailed logs when installing Magisk or modules
-- Fix download progress error if module is larger than 20MB
-- Changed the way how downloaded repos are processed, should be rock stable
-- Prevent crashes when database is corrupted - clear db instead
-- Fix saving wrong UID issue on multiuser mode
-- Add custom update channel support - you can now switch to your own update server!
-- Some UI adjustments and asynchronous UI performance improvements
+- 支持v14.5的新路径和设置
+- 支持重新打包Magisk Manager进行隐藏（仅适用于v14.5以上版本）。
+- 支持将全局su数据库硬连接到应用程序数据中
+- 支持签署启动镜像（AVB 1.0）。
+- 将应用图标更新为自适应图标
+- 如果卸载，从MagiskHide列表中删除应用程序
+- 增加支持在安装Magisk或模块时保存详细的日志
+- 修复模块大于20MB时的下载进度错误
+- 改变了下载版本的处理方式，应该是岩石稳定了
+- 防止数据库损坏时的崩溃--清除数据库。
+- 修复多用户模式下保存错误UID的问题
+- 增加自定义更新通道支持--你现在可以切换到你自己的更新服务器了
+- 一些UI调整和异步UI性能改进
 
 ### v5.4.0
 
-- SafetyNet checks now require external code extension (for 100% FOSS)
-- Repo loading will now show real-time progress instead of blank screen
-- Show progress when downloading an online module
-- Allow secondary users to access superuser settings if allowed
-- Fix several places where external storage is needed but forgot to request
-- Fetching online repo info from sever is significantly faster thanks to multithreading
-- Pulling down Download page will now force a full refresh, thanks to the faster loading speed
-- Using new resetprop tool to properly detect MagiskHide status
+- SafetyNet检查现在需要外部代码扩展（对于100%的FOSS）。
+- Repo加载现在将显示实时进度而不是空白屏幕
+- 下载在线模块时显示进度
+- 如果允许，允许二级用户访问超级用户的设置
+- 修复几个需要外部存储但忘记申请的地方
+- 由于采用了多线程技术，从服务器获取在线回购信息的速度明显提高了
+- 由于加载速度加快，拉下下载页面现在会强制进行全面刷新
+- 使用新的resetprop工具来正确检测MagiskHide状态
 
 ### v5.3.5
 
-- Fix error when MagiskManager folder doesn't exist
-- Offload many logic to scripts: script fixes will also be picked up in the app
-- Add installing Magisk to second slot on A/B partition devices
-- Support file based encryption: store necessary files into DE storage
-- Update uninstall method to self remove app and prompt user to manually reboot
+- 修正MagiskManager文件夹不存在时的错误
+- 将许多逻辑卸载到脚本中：脚本的修复也会在应用程序中得到。
+- 在A/B分区的设备上增加安装Magisk到第二个插槽的功能
+- 支持基于文件的加密：将必要的文件存储到DE存储中
+- 更新卸载方法，以自我删除应用程序并提示用户手动重新启动
 
 ### v5.3.0
 
-- Add hide Magisk Manager feature - hide the app from detection
-- Add update channel settings - you can now receive beta updates through the app
-- Proper runtime permission implementation - request storage permission only when needed
-- Add boot image file patch feature - you can patch boot images without root!
-- Rewrite Magisk direct install method - merge with boot image file patch mode
-- Add feature to restore stock boot image - convenient for applying OTAs
+- 增加隐藏Magisk管理器功能--隐藏应用程序，使其不被发现
+- 增加更新渠道设置--你现在可以通过应用接收测试版更新了
+- 正确的运行时权限实现--只在需要的时候请求存储权限
+- 增加启动镜像文件补丁功能--你可以在没有root的情况下给启动镜像打补丁
+- 重写Magisk直接安装方法--与启动镜像文件补丁模式合并
+- 增加恢复原始启动镜像的功能--方便应用 OTAs
 
 ### v5.2.0
 
-- Fix force close which occurs when failure in flashing zips
-- Remove several external dependencies and rewrite a large portion of components
-- Improve MarkDown support: showing README.MD is much faster and will properly render Unicode characters (e.g. Chinese characters)
-- Add language settings: you can now switch to languages other than system default
-- Remove busybox included within APK; download through Internet if needed
-- Use Magisk internal busybox if detected
-- Busybox is added to the highest priority in PATH to create reliable shell environment
-- Always use global namespace for internal shell if possible
+- 修复强制关闭的问题，该问题发生在闪现压缩文件失败的时候
+- 删除几个外部依赖，重写大部分组件
+- 改进MarkDown支持：显示README.MD的速度更快，并能正确呈现Unicode字符（如中文字符）。
+- 增加语言设置：你现在可以切换到系统默认以外的语言。
+- 移除APK中的忙音盒；如果需要，可以通过互联网下载
+- 如果检测到使用Magisk内部忙音盒
+- Busybox被添加到PATH中的最高优先级，以创造可靠的shell环境
+- 如果可能的话，总是使用全局命名空间来创建内部shell。
 
 ### v5.1.1
 
-- Fix Magisk Manager hanging when reading files with no end newline
-- Massive rewrite AsyncTasks to prevent potential memory leak
-- Fix some minor issues with notifications
-- Improve update notification and popup behavior
-- Update internal uninstaller script
+- 修正Magisk管理器在读取没有换行结束的文件时挂起的问题
+- 大规模重写AsyncTasks以防止潜在的内存泄漏
+- 修复通知中的一些小问题
+- 改进更新通知和弹出窗口行为
+- 更新内部卸载程序脚本
 
 ### v5.1.0
 
-- Introduce a new flash log activity, so you know what is actually happening, just like flashing in custom recoveries!
-- Rewritten Java native shall interface: merged root shell and normal shell
-- Cleaned up implementation of repo recyclerview and adapters
+- 引入新的闪电日志活动，让你知道实际发生了什么，就像在自定义恢复中闪电一样!
+- 重写了Java本地应接口：合并了root shell和普通shell
+- 清理了 repo recyclerview 和适配器的实现
 
 ### v5.0.6
 
-- Fix crash when installing modules downloading from repos
+- 修复了安装从repos下载的模块时的崩溃问题
 
 ### v5.0.5
 
-- Fix update notifications on Android O
-- Fix crash when trying to install Magisk Manager update
-- Update translations
+- 修复Android O上的更新通知
+- 修复尝试安装Magisk Manager更新时的崩溃
+- 更新翻译
 
 ### v5.0.4
 
-- Fix bug in su timeout
+- 修复Su超时的问题
 
 ### v5.0.3
 
-- Fix FC on boot on Android O
-- Adapt to Android O broadcast limitations: re-authenticate app when update is disabled on Android O
+- 修复Android O上启动时的FC
+- 适应Android O的广播限制：在Android O上禁用更新时重新认证应用
 
 ### v5.0.2
-- Rewrite zip signing part, zips downloaded from repo will be properly signed and adjusted for custom recoveries
+- 重写zip签名部分，从repo下载的zip将被正确签名，并为自定义恢复进行调整。
 
 ### v5.0.1
 
-- Add namespace mode options
-- Fix a bug in Manager OTA system
+- 增加命名空间模式选项
+- 修复Manager OTA系统中的一个错误
 
 ### v5.0.0
 
-- Support the new Magisk unified binary
-- Properly handle application install / uninstall root management issues
-- Add multiuser mode support
-- Add application upgrade re-authentication feature
-- Add basic integrity check for SafetyNet
-- Merged install fragment and status fragment into Magisk fragment
-- Fix theme switching glitch
-- Update translations
+- 支持新的Magisk统一二进制
+- 正确处理应用程序安装/卸载根管理问题
+- 增加多用户模式支持
+- 增加应用升级重新认证功能
+- 增加SafetyNet的基本完整性检查
+- 将安装片断和状态片断合并到Magisk片断中
+- 修复主题切换故障
+- 更新翻译
 
 ### v4.3.3
 
-- Re-build APK with stable build tools
+- 使用稳定的构建工具重新构建APK
 
 ### v4.3.2
 
-- Improve usage of Github API to support unlimited amount of online repos
-- Update translations (thanks to all contributors!!)
+- 改进Github API的使用，以支持无限量的在线资源库
+- 更新翻译（感谢所有贡献者！！）。
 
 ### v4.3.1
-- Update proper Magisk busybox detection, will not be confused by busybox installed by default in custom roms
+- 更新正确的Magisk busybox检测，不会被定制的roms中默认安装的busybox所迷惑
 
 ### v4.3.0
 
-- Add Core Only Mode option
-- Fix crashes when selecting release note on Samsung devices
-- Hide modules using template lower than version 3
+- 增加仅核心模式选项
+- 修复在三星设备上选择发行说明时的崩溃问题
+- 隐藏使用低于版本3的模板的模块
 
 ### v4.2.7
 
-- Update translations
-- Update uninstall scripts
+- 更新翻译
+- 更新卸载脚本
 
 ### v4.2.6
 
-- Samsung crashes finally fixed (confirmed!)
-- Add settings to disable update notifications
-- Adjust Dark theme colors
-- Refined download section, now support download only when root is not detected
-- Fix crashes in boot image selection
+- 三星崩溃终于修复（确认！）。
+- 增加禁用更新通知的设置
+- 调整黑暗主题颜色
+- 细化下载部分，现在只支持在未检测到root时下载
+- 修复启动图像选择中的崩溃问题
 
 ### v4.2
 
-- Change Repo cache to database
-- Dark theme refined
-- Alert Dialog buttons now properly aligned
-- Support very large online modules' zip processing
-- You can now download online modules without installing
-- Add notifications when new Magisk version is available
-- Removed changelog, donation link, support link in download cards
-- Read and display README.md for online modules
+- 将Repo缓存改为数据库
+- 完善黑暗主题
+- 警报对话框按钮现在正确对齐了
+- 支持非常大的在线模块的压缩处理
+- 现在你可以在不安装的情况下下载在线模块
+- 增加Magisk新版本发布时的通知
+- 删除了下载卡中的更新日志、捐赠链接和支持链接
+- 读取并显示在线模块的README.md
 
 ### v4.1
 
-- Change MagiskHide startup
-- Reduce static data (= less memory leaks/issues)
-- Translation updates
+- 改变MagiskHide的启动方式
+- 减少静态数据(=减少内存泄漏/问题)
+- 翻译更新
+
 
 ### v4.0
 
-- Whole new Superuser section for MagiskSU management!
-- Add Superuser tab in Logs section
-- Add lots of Superuser settings
-- Handle MagiskSU requests, logging, notifications
-- Controls MagiskHide initialization
-- Add disable button
-- Add uninstall button
-- Tons of improvements, not practical to list all :)
+- 为MagiskSU管理提供全新的超级用户部分!
+- 在日志部分添加超级用户标签
+- 增加大量的超级用户设置
+- 处理MagiskSU的请求、日志和通知
+- 控制MagiskHide的初始化
+- 增加停用按钮
+- 增加卸载按钮
+- 大量的改进，不可能全部列出:)
 
 ### v3.1
 
-- Fix online repo inaccessible issue
-- Fix repo list card expanding issues
-- Change SafetyNet check to manually triggered
-- Update translations
-- Tons of bug fixes preventing potential crashes
+- 修复在线版本库无法访问的问题
+- 修复 repo 列表卡扩展问题
+- 将安全网检查改为手动触发
+- 更新翻译
+- 大量的错误修复，防止潜在的崩溃。
 
 ### v3.0
 
-- Now on Play Store
-- Add Status Section, you can check Safety Net, root status, and Magisk status in one place
-- Add Install Section, you can manually choose the boot image location and advanced options
+- 现在在Play Store上
+- 增加状态部分，你可以在一个地方检查安全网、root状态和Magisk状态。
+- 增加安装部分，你可以手动选择启动镜像位置和高级选项
 
 ### v2.5
 
-- Add Magisk Hide section, you can now add/remove apps from Magisk Hide list
-- Support custom Magisk Version names, any string is now accepted (for custom builds)
-- Fixed modules and repos not sorted by name
+- 增加Magisk隐藏部分，你现在可以从Magisk隐藏列表中添加/删除应用了
+- 支持自定义Magisk版本名称，现在可以接受任何字符串（对于自定义构建）。
+- 修正了模块和软件库不按名称排序的问题
 
 ### v2.1
 
-- Add Magisk Hide settings
-- Add search bar in "Downloads Sections"
-- Fix crashes when no root is available
-- Fix trash can icon not updated when removing module
-- Prevent crash when Magisk Version is set incorrectly
+- 添加Magisk隐藏设置
+- 在 "下载区 "增加搜索栏
+- 修复无根时的崩溃问题
+- 修复删除模块时垃圾桶图标不更新的问题
+- 防止Magisk版本设置不正确时的崩溃
 
 ### v2.0
 
-- Massive refactor
-- Material Design
-- Module Management
-- Download Section
-- And much more....
+- 大规模重构
+- 材料设计
+- 模块管理
+- 下载部分
+- 还有更多....
 
 ### v1.0
 
-- Initial release
+- 初次发布
