@@ -1,102 +1,102 @@
-# Magisk Changelog
+# Magisk的更新日志
 
 ### v24.3
 
-- [General] Stop using `getrandom` syscall
-- [Zygisk] Update API to v3, adding new fields to `AppSpecializeArgs`
-- [App] Improve app repackaging installation workflow
+- [General] 停止使用`getrandom`系统调用.
+- [Zygisk] 更新API到v3，为`AppSpecializeArgs`添加新字段。
+- [App] 改进app重新打包的安装工作流程
 
 ### v24.2
 
-- [MagiskSU] Fix buffer overflow
-- [MagiskSU] Fix owner managed multiuser superuser settings
-- [MagiskSU] Fix command logging when using `su -c <cmd>`
-- [MagiskSU] Prevent su request indefinite blocking
-- [MagiskBoot] Support `lz4_legacy` archive with multiple magic
-- [MagiskBoot] Fix `lz4_lg` compression
-- [DenyList] Allow targeting processes running as system UID
-- [Zygisk] Workaround Samsung's "early zygote"
-- [Zygisk] Improved Zygisk loading mechanism
-- [Zygisk] Fix application UID tracking
-- [Zygisk] Fix improper `umask` being set in zygote
-- [App] Fix BusyBox execution test
-- [App] Improve stub loading mechanism
-- [App] Major app upgrade flow improvements
-- [General] Improve commandline error handling and messaging
+- [MagiskSU] 修复缓冲区溢出
+- [MagiskSU] 修正所有者管理的多用户超级用户设置
+- [MagiskSU] 修正使用`su -c <cmd>`时的命令记录。
+- [MagiskSU] 防止su请求无限期阻塞
+- [MagiskBoot] 支持 "lz4_legacy "归档文件，有多个魔法。
+- [MagiskBoot] 修正`lz4_lg`压缩法
+- [DenyList] 允许瞄准以系统UID身份运行的进程
+- [Zygisk] 解决三星的 "早期zygote"。
+- [Zygisk] 改进Zygisk加载机制
+- [Zygisk]修复app程序UID跟踪
+- [Zygisk] 修复在zygote中设置的不正确的`umask`。
+- [App]修复BusyBox执行测试
+- [app] 改进代理加载机制
+- [app] 主要的app升级流程改进
+- [通用] 改进命令行错误处理和信息传递
 
 ### v24.1
 
-- [App] Stability improvements
+- [app] 稳定性改进
 
 ### v24.0
 
-- [General] MagiskHide is removed from Magisk
-- [General] Support Android 12
-- [General] Support devices that do not support 32-bit and only runs 64-bit code
-- [General] Update BusyBox to 1.34.1
-- [Zygisk] Introduce new feature: Zygisk
-- [Zygisk] Introduce DenyList feature to revert Magisk features in user selected processes
-- [MagiskBoot] Support patching 32-bit kernel zImages
-- [MagiskBoot] Support boot image header v4
-- [MagiskBoot] Support patching out `skip_initramfs` from dtb bootargs
-- [MagiskBoot] Add new env variable `PATCHVBMETAFLAG` to configure whether vbmeta flags should be patched
-- [MagiskInit] Support loading fstab from `/system/etc` (required for Pixel 6)
-- [MagiskInit] Support `/proc/bootconfig` for loading boot configurations
-- [MagiskInit] Better support for some Meizu devices
-- [MagiskInit] Better support for some OnePlus/Oppo/Realme devices
-- [MagiskInit] Support `init.real` on some Sony devices
-- [MagiskInit] Skip loading Magisk when detecting DSU
-- [MagiskPolicy] Load `*_compat_cil_file` from system_ext
-- [MagiskSU] Use isolated devpts if the kernel supports it
-- [MagiskSU] Fix root shell if isolated mount namespace is set
-- [resetprop] Deleted properties are now wiped from memory instead of just unlinking
-- [App] Build a single APK for all ABIs
-- [App] Switch to use standard bottom navigation bar
-- [App] Downloading modules from the centralized Magisk-Modules-Repo is removed
-- [App] Support user configuration of boot image vbmeta patching
-- [App] Restore the ability to install Magisk on the other slot on some A/B devices
-- [App] Allow modules to specify an update URL for in-app update + install
+- [常规] MagiskHide从Magisk中移除
+- [通用] 支持Android 12
+- [通用] 支持不支持32位和只运行64位代码的设备
+- [一般] 更新BusyBox到1.34.1
+- [Zygisk] 引入新功能。Zygisk
+- [Zygisk] 引入DenyList功能，在用户选择的进程中恢复Magisk功能。
+- [MagiskBoot] 支持修补32位内核zImages
+- [MagiskBoot] 支持引导图像头V4
+- [MagiskBoot] 支持从dtb bootargs中打出`skip_initramfs`的补丁。
+- [MagiskBoot] 增加新的环境变量`PATCHVBMETAFLAG`，以配置是否要修补vbmeta标志。
+- [MagiskInit] 支持从`/system/etc`加载fstab（Pixel 6需要）。
+- [MagiskInit] 支持`/proc/bootconfig`来加载启动配置。
+- [MagiskInit] 更好的支持某些Meizu设备
+- [MagiskInit] 更好地支持一些OnePlus/Oppo/Realme设备
+- [MagiskInit] 在一些索尼设备上支持`init.real`。
+- [MagiskInit] 检测到DSU时跳过加载Magisk
+- [MagiskPolicy] 从system_ext加载`*_compat_cil_file`。
+- [MagiskSU] 如果内核支持，就使用隔离的devpts
+- [MagiskSU] 如果设置了孤立的挂载命名空间，则修复root shell。
+- [resetprop] 删除的属性现在会从内存中抹去，而不是仅仅取消链接。
+- [App] 为所有ABI构建一个单一的APK
+- [app] 转换为使用标准的底部导航栏
+- [app] 取消从集中的Magisk-Modules-Repo下载模块的做法
+- [app] 支持用户配置启动镜像vbmeta补丁
+- [app] 恢复在一些A/B设备的另一个插槽上安装Magisk的功能
+- [app] 允许模块为app内更新+安装指定一个更新URL
 
 ### v23.0
 
-- [App] Update snet extension. This fixes SafetyNet API errors.
-- [App] Fix a bug in the stub app that causes APK installation to fail
-- [App] Hide annoying errors in logs when hidden as stub
-- [App] Fix issues when patching ODIN tar files when the app is hidden
-- [General] Remove all pre Android 5.0 support
-- [General] Update BusyBox to use proper libc
-- [General] Fix C++ undefined behaviors
-- [General] Several `sepolicy.rule` copy/installation fixes
-- [MagiskPolicy] Remove unnecessary sepolicy rules
-- [MagiskHide] Update package and process name validation logic
-- [MagiskHide] Some changes that prevents zygote deadlock
+- [app] 更新snet扩展。这修正了SafetyNet API的错误。
+- [app] 修复代理app中导致APK安装失败的错误
+- [App] 隐藏作为代理时日志中恼人的错误
+- [app] 修复app被隐藏时修补ODIN tar文件的问题
+- [通用] 删除所有Android 5.0之前的支持
+- [通用] 更新BusyBox以使用正确的libc
+- [通用] 修复C++的未定义行为
+- [通用] 几个`sepolicy.rule`复制/安装的修复
+- [MagiskPolicy] 删除不必要的sepolicy规则
+- [MagiskHide] 更新软件包和进程名称的验证逻辑
+- [MagiskHide] 一些防止zygote死锁的变化
 
 ### v22.1
 
-- [App] Prevent multiple installation sessions running in parallel
-- [App] Prevent OutOfMemory crashes when checking boot signature on PXA boot images
-- [General] Proper cgroup migration implementation
-- [General] Rewrite log writer from scratch, should resolve any crashes and deadlocks
-- [General] Many scripts updates fixing regressions
-- [MagiskHide] Prevent possible deadlock when signal arrives
-- [MagiskHide] Partial match process names if necessary
-- [MagiskBoot] Preserve and patch AVB 2.0 structures/headers in boot images
-- [MagiskBoot] Properly strip out data encryption flags
-- [MagiskBoot] Prevent possible integer overflow
-- [MagiskInit] Fix `sepolicy.rule` mounting strategy
-- [resetprop] Always delete existing `ro.` props before updating. This will fix bootloops that could be caused by modifying device fingerprint properties.
+- [App] 防止多个安装会话并行运行
+- [App] 防止在检查PXA启动镜像的启动签名时出现OutOfMemory崩溃。
+- [通用] 正确的cgroup迁移实现
+- [通用] 从头开始重写日志编写器，应该可以解决任何崩溃和死锁问题
+- [General] 许多脚本更新，修复了退步问题
+- [MagiskHide] 防止信号到达时可能出现的死锁。
+- [MagiskHide] 必要时部分匹配进程名称
+- [MagiskBoot] 在启动图像中保留和修补AVB 2.0结构/头文件
+- [MagiskBoot] 适当剥离数据加密标志
+- [MagiskBoot] 防止可能的整数溢出
+- [MagiskInit] 修复`sepolicy.rule`安装策略
+- [resetprop] 在更新前一定要删除现有的`ro.`props。这将修复因修改设备指纹属性而可能引起的启动循环。
 
 ### v22.0
 
-- [General] Magisk and Magisk Manager is now merged into the same package!
-- [App] The term "Magisk Manager" is no longer used elsewhere. We refer it as the Magisk app.
-- [App] Support hiding the Magisk app with advanced technique (stub APK loading) on Android 5.0+ (it used to be 9.0+)
-- [App] Disallow re-packaging the Magisk app on devices lower than Android 5.0
-- [App] Detect and warn about multiple invalid states and provide instructions on how to resolve it
-- [MagiskHide] Fix a bug when stopping MagiskHide does not take effect
-- [MagiskBoot] Fix bug when unpacking `lz4_lg` compressed boot images
-- [MagiskInit] Support Galaxy S21 series
-- [MagiskSU] Fix incorrect APEX paths that caused `libsqlite.so` fail to load
+- [General] Magisk和Magisk Manager现在已经合并到同一个软件包中了!
+- [app] "Magisk Manager "这个词在其他地方不再使用了。我们把它称为Magiskapp程序。
+- [app] 支持在安卓5.0以上系统中用高级技术隐藏Magiskapp（代理APK加载）（以前是9.0以上）。
+- [app] 不允许在低于安卓5.0的设备上重新打包Magiskapp。
+- [App] 检测并警告多个无效的状态，并提供如何解决的说明
+- [MagiskHide] 修复停止MagiskHide时不生效的问题
+- [MagiskBoot] 修复解压`lz4_lg`压缩启动镜像时的错误
+- [MagiskInit] 支持Galaxy S21系列
+- [MagiskSU] 修复导致`libsqlite.so`无法加载的不正确的APEX路径
 
 ### v21.4
 
