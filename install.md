@@ -133,7 +133,7 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
   **不要使用 MTP** MTP 可能会损坏大文件 .
 - 重启到下载模式.在你的电脑上打开 odin , 将 `magisk_patched.tar` 输入 `AP`, `BL`, `CP`, 以及 `CSC` (**不要刷入** `HOME_CSC` 因为我们需要从原生固件 **清除数据**)。
 - 在完成刷写后，你的设备会自动重启 . 如果需要回复出厂设置，请允许.
-- 如果你的设备 **没有** 启动 ramdisk, 重启到 recovery 来启用 (reason stated in [Magisk in Recovery](#magisk-in-recovery)).
+- 如果你的设备 **没有** 启动 ramdisk, 重启到 recovery 来启用 (因为 [Magisk in Recovery](#magisk-in-recovery)中提到的原因).
 - 安装您已下载的 Magisk 应用程序并启动该应用程序。它应该显示一个对话框，要求进行进一步设置。
 - 让 Magisk app 自动完成之后的步骤然后重启 .享受吧!
 
