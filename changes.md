@@ -12,7 +12,7 @@
 - [MagiskSU] 修正所有者管理的多用户超级用户设置
 - [MagiskSU] 修正使用`su -c <cmd>`时的命令记录。
 - [MagiskSU] 防止su请求无限期阻塞
-- [MagiskBoot] 支持 "lz4_legacy "归档文件，有多个魔法。
+- [MagiskBoot] 用一些魔法来支持 "lz4_legacy "归档文件
 - [MagiskBoot] 修正`lz4_lg`压缩法
 - [DenyList] 允许瞄准以系统UID身份运行的进程
 - [Zygisk] 解决三星的 "早期zygote"。
