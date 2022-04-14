@@ -26,7 +26,7 @@
 - 你需要会使用 `adb` 和 `fastboot` 。
 - 如果你打算安装自定义内核，请在 Magisk 安装完成之后再安装。
 - 你需要解锁你的设备的 `bootloader`。具体信息请访问你的设备提供商的官网。
-  > 译者注：`adb`和`fastboot`可以从[SDK Platform](https://developer.android.google.cn/studio/releases/platform-tools)获取。当然，对于 **Linux 和 MacOS 用户**，更推荐使用包管理器来获取和配置。
+  > 译者注：`adb`和`fastboot`可以从[SDK Platform](https://developer.android.google.cn/studio/releases/platform-tools)获取。当然，对于 **Linux 和  MacOS 用户**，更推荐使用包管理器来获取和配置。
   >
   > 另外，如果你发现你无法访问 GitHub 或者下载速度很慢，请考虑从本地的镜像站下载 Magisk：[清华 Tuna 镜像站](https://mirrors.tuna.tsinghua.edu.cn/github-release/topjohnwu/Magisk/LatestRelease/)
 
