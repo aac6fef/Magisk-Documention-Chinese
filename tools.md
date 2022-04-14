@@ -1,64 +1,65 @@
-# Magisk Tools
+# Magisk工具
 
-Magisk comes with a huge collections of tools for installation, daemons, and utilities for developers. This documentation covers the 3 binaries and all included applets. The binaries and applets are shown below:
+Magisk带有大量的安装工具、守护程序和开发人员使用的实用程序。本文档包括3个二进制文件和所有包含的小程序。这些二进制文件和小程序如下所示。
 
 ```
-magiskboot                 /* binary */
-magiskinit                 /* binary */
+magiskboot /* 二进制文件 */
+magiskinit /* 二进制文件 */
 magiskpolicy -> magiskinit
 supolicy -> magiskinit
-magisk                     /* binary */
+magisk /* 二进制 */
 magiskhide -> magisk
 resetprop -> magisk
 su -> magisk
 ```
 
-Note: The Magisk zip you download only contains `magiskboot`, `magiskinit`, and `magiskinit64`. The binary `magisk` is compressed and embedded into `magiskinit(64)`. Push `magiskinit(64)` to your device and run `./magiskinit(64) -x magisk <path>` to extract `magisk` out of the binary.
+注意: 你下载的Magisk压缩包只包含`magiskboot`、`magiskinit`和`magiskinit64`。二进制的`magisk`被压缩并嵌入到`magiskinit(64)`中。把`magiskinit(64)`推到你的设备上，然后运行`./magiskinit(64) -x magisk <path>`，从二进制文件中提取`magisk`。
 
 ### magiskboot
 
-A tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms.
+一个解压/重新打包启动镜像的工具，解析/修补/提取cpio，修补dtb，修补十六进制文件，以及用多种算法压缩/解压文件。
 
-`magiskboot` natively supports (which means it does not rely on external tools) common compression formats including `gzip`, `lz4`, `lz4_legacy` ([only used on LG](https://events.static.linuxfound.org/sites/events/files/lcjpcojp13_klee.pdf)), `lzma`, `xz`, and `bzip2`.
+`magiskboot`原生支持（这意味着它不依赖外部工具）常见的压缩格式，包括`gzip`、`lz4`、`lz4_legacy`（[仅用于LG](https://events.static.linuxfound.org/sites/events/files/lcjpcojp13_klee.pdf)）、`lzma`、`xz`和`bzip2`。
 
-The concept of `magiskboot` is to make boot image modification simpler. For unpacking, it parses the header and extracts all sections in the image, decompressing on-the-fly if compression is detected in any sections. For repacking, the original boot image is required so the original headers can be used, changing only the necessary entries such as section sizes and checksum. All sections will be compressed back to the original format if required. The tool also supports many CPIO and DTB operations.
+`magiskboot`的概念是使启动镜像的修改更简单。对于解包，它解析头文件并提取映像中的所有部分，如果在任何部分检测到压缩，就立即进行解压。对于重新打包，需要原始的 Boot Image，所以可以使用原始的头文件，只需要改变必要的条目，比如章节大小和校验。如果需要，所有的部分都会被压缩成原始格式。该工具还支持许多CPIO和DTB操作。
 
 ```
-Usage: ./magiskboot <action> [args...]
+使用方法。./magiskboot <action> [args...]。
 
-Supported actions:
-  unpack [-n] [-h] <bootimg>
-    Unpack <bootimg> to, if available, kernel, kernel_dtb, ramdisk.cpio,
-    second, dtb, extra, and recovery_dtbo into current directory.
-    If '-n' is provided, it will not attempt to decompress kernel or
-    ramdisk.cpio from their original formats.
-    If '-h' is provided, it will dump header info to 'header',
-    which will be parsed when repacking.
-    Return values:
-    0:valid    1:error    2:chromeos
+支持的操作。
+  unpack [-n] [-h] <bootimg>.
+    将<bootimg>解压到，如果有的话，kernel, kernel_dtb, ramdisk.cpio,
+    second, dtb, extra, 和 recovery_dtbo到当前目录。
+    如果提供了'-n'，它将不会尝试解压kernel或
+    ramdisk.cpio的原始格式。
+    如果提供了'-h'，它将把头信息转储到'header'。
+    在重新打包的时候会被解析。
+    返回值。
+    0:有效 1:错误 2:chromeos
 
-  repack [-n] <origbootimg> [outbootimg]
-    Repack boot image components from current directory
-    to [outbootimg], or new-boot.img if not specified.
-    If '-n' is provided, it will not attempt to recompress ramdisk.cpio,
-    otherwise it will compress ramdisk.cpio and kernel with the same format
-    as in <origbootimg> if the file provided is not already compressed.
-    If env variable PATCHVBMETAFLAG is set to true, all disable flags will
-    be set in the vbmeta header.
+  repack [-n] <origbootimg> [outbootimg)
+    重新打包当前目录下的 Boot Image 组件
+    到 [outbootimg]，如果没有指定，则为 new-boot.img。
+    如果提供了'-n'，它将不会尝试重新压缩ramdisk.cpio。
+    否则，它将压缩ramdisk.cpio和内核，其格式与
+    与<origbootimg>中的格式相同，如果提供的文件还没有被压缩的话。
+    如果环境变量PATCHVBMETAFLAG被设置为 "true"，所有禁用的标志将被设置在
+    将被设置在vbmeta头中。
 
-  hexpatch <file> <hexpattern1> <hexpattern2>
-    Search <hexpattern1> in <file>, and replace with <hexpattern2>
 
-  cpio <incpio> [commands...]
-    Do cpio commands to <incpio> (modifications are done in-place)
-    Each command is a single argument, add quotes for each command
-    Supported commands:
+  hexpatch <文件> <hexpattern1> <hexpattern2
+    在<file>中搜索<hexpattern1>，然后用<hexpattern2>替换。
+
+  cpio <incpio> [命令...]
+    对<incpio>做cpio命令（修改是在原地进行的）
+    每个命令都是一个参数，为每个命令加上引号
+    支持的命令。
       exists ENTRY
-        Return 0 if ENTRY exists, else return 1
+        如果ENTRY存在则返回0，否则返回1
       rm [-r] ENTRY
-        Remove ENTRY, specify [-r] to remove recursively
+        删除ENTRY，指定[-r]可以递归删除。
       mkdir MODE ENTRY
-        Create directory ENTRY in permissions MODE
+        在权限MODE中创建目录ENTRY
       ln TARGET ENTRY
         Create a symlink to TARGET with the name ENTRY
       mv SOURCE DEST
@@ -195,92 +196,93 @@ Supported policy statements:
 "genfscon fs_name partial_path fs_context"
 ```
 
+
 ### magisk
 
-When the magisk binary is called with the name `magisk`, it works as a utility tool with many helper functions and the entry points for several Magisk services.
+当Magisk二进制文件以`magisk'的名字被调用时，它作为一个实用工具，有许多辅助功能和几个Magisk服务的入口点。
 
 ```
-Usage: magisk [applet [arguments]...]
-   or: magisk [options]...
+用法：magisk [applet [arguments]...] 。
+   或者: magisk [options]...
 
-Options:
-   -c                        print current binary version
-   -v                        print running daemon version
-   -V                        print running daemon version code
-   --list                    list all available applets
-   --remove-modules          remove all modules and reboot
-   --install-module ZIP      install a module zip file
+选项。
+   -c 打印当前的二进制版本
+   -v 打印正在运行的守护程序版本
+   -V 打印正在运行的守护程序版本代码
+   --list 列出所有可用的小程序
+   --remove-modules 删除所有模块并重新启动
+   --install-module ZIP 安装一个模块压缩文件
 
-Advanced Options (Internal APIs):
-   --daemon                  manually start magisk daemon
-   --stop                    remove all magisk changes and stop daemon
-   --[init trigger]          start service for init trigger
-                             Supported init triggers:
+高级选项（内部API）。
+   --daemon手动启动Magisk守护进程
+   --stop 删除所有magisk的变化并停止守护进程
+   --[init trigger] 启动init trigger的服务
+                             支持的init触发器。
                              post-fs-data, service, boot-complete
-   --unlock-blocks           set BLKROSET flag to OFF for all block devices
-   --restorecon              restore selinux context on Magisk files
-   --clone-attr SRC DEST     clone permission, owner, and selinux context
-   --clone SRC DEST          clone SRC to DEST
-   --sqlite SQL              exec SQL commands to Magisk database
-   --path                    print Magisk tmpfs mount path
-   --denylist ARGS           denylist config CLI
+   --unlock-blocks 将所有块设备的BLKROSET标志设为OFF
+   --restorecon 在Magisk文件上恢复selinux环境
+   --clone-attr SRC DEST clone permission, owner, and selinux context
+   --clone SRC DEST 将SRC克隆到DEST。
+   --sqlite SQL 向Magisk数据库执行SQL命令
+   --path print Magisk tmpfs mount path
+   --denylist ARGS denylist config CLI
 
-Available applets:
+可用的小程序。
     su, resetprop
 
-Usage: magisk --denylist [action [arguments...] ]
-Actions:
-   status          Return the enforcement status
-   enable          Enable denylist enforcement
-   disable         Disable denylist enforcement
-   add PKG [PROC]  Add a new target to the denylist
-   rm PKG [PROC]   Remove target(s) from the denylist
-   ls              Print the current denylist
-   exec CMDs...    Execute commands in isolated mount
-                   namespace and do all unmounts
+用法: magisk --denylist [action [arguments...] ] ]
+动作。
+   status 返回执行状态
+   enable 启用拒绝名单的执行
+   disable 停用 denylist 的执行
+   add PKG [PROC] 添加一个新的目标到denylist中。
+   rm PKG [PROC] 从denylist中删除目标。
+   ls 打印当前的 denylist
+   exec CMDs...    执行孤立的挂载命令
+                   名称空间中执行命令，并进行所有的卸载
 ```
 
 ### su
 
-An applet of `magisk`, the MagiskSU entry point. Good old `su` command.
+`magisk`的一个小程序，MagiskSU的入口点。传统的的`su'命令.
 
 ```
-Usage: su [options] [-] [user [argument...]]
+用法: su [选项] [-] [用户 [参数...]] ]
 
-Options:
-  -c, --command COMMAND         pass COMMAND to the invoked shell
-  -h, --help                    display this help message and exit
-  -, -l, --login                pretend the shell to be a login shell
+选项:
+  -c, --command COMMAND 将COMMAND传给被调用的shell。
+  -h, --help 显示此帮助信息并退出
+  -, -l, --login 将 shell 伪装成一个登录 shell
   -m, -p,
-  --preserve-environment        preserve the entire environment
-  -s, --shell SHELL             use SHELL instead of the default /system/bin/sh
-  -v, --version                 display version number and exit
-  -V                            display version code and exit
+  --reserve-environment 保存整个环境
+  -s, --shell SHELL 使用SHELL而不是默认的/system/bin/sh
+  -v, --version 显示版本号并退出
+  -V 显示版本代码并退出
   -mm, -M,
-  --mount-master                force run in the global mount namespace
+  --mount-master强制在全局mount命名空间运行
 ```
 
-Note: even though the `-Z, --context` option is not listed above, the option still exists for CLI compatibility with apps designed for SuperSU. However the option is silently ignored since it's no longer relevant.
+注意：尽管上面没有列出`-Z, --context`选项，该选项仍然存在，以便与为SuperSU设计的应用程序的CLI兼容。但是这个选项被默默地忽略了，因为它不再相关了。
 
 ### resetprop
 
-An applet of `magisk`. An advanced system property manipulation utility. Check the [Resetprop Details](details.md#resetprop) for more background information.
+`magisk`的一个小程序。一个高级的系统属性操作工具。查看 [Resetprop Details](details.md#resetprop) 以了解更多背景信息。
 
 ```
-Usage: resetprop [flags] [options...]
+用法：resetprop [flags] [options...] 。
 
-Options:
-   -h, --help        show this message
-   (no arguments)    print all properties
-   NAME              get property
-   NAME VALUE        set property entry NAME with VALUE
-   --file FILE       load props from FILE
-   --delete NAME     delete property
+选项。
+   -h, --help 显示此信息
+   (没有参数) 打印所有属性
+   NAME 获取属性
+   NAME设置属性条目NAME与VALUE
+   --file FILE 从FILE中加载prop
+   --delete NAME删除属性
 
-Flags:
-   -v      print verbose output to stderr
-   -n      set props without going through property_service
-           (this flag only affects setprop)
-   -p      read/write props from/to persistent storage
-           (this flag only affects getprop and delprop)
+标志。
+   -v 向 stderr 打印详细的输出信息
+   -n 设置prop，不经过property_service
+           (这个标志只影响到setprop)
+   -p 从持久性存储中读/写prop
+           (这个标志只影响getprop和delprop)
 ```
