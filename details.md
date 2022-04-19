@@ -4,7 +4,7 @@
 
 ###  "Magisk tmpfs 文件夹" 中的路径
 
-Magisk 会挂载  `tmpfs` 目录来存储一些临时数据. 对于一些有 `/sbin` 文件夹的设备, it will be chosen as it will also act as an overlay to inject binaries into `PATH`. From Android 11 onwards, the `/sbin` folder might not exist, so Magisk will randomly create a folder under `/dev` and use it as the base folder.
+Magisk 会挂载  `tmpfs` 目录来存储一些临时数据. 对于一些有 `/sbin` 文件夹的设备, 它将被选中，因为它也将作为一个覆盖层，将二进制文件注入`PATH`。从Android 11开始，`/sbin`文件夹可能不存在，所以Magisk会在`/dev`下随机创建一个文件夹，并将其作为基础文件夹。
 
 ```
 可以使用使用`magisk --path`命令来获得 Magisk 目前正在使用的基础文件夹。
@@ -15,102 +15,102 @@ MAGISKBASE=$(magisk --path)
 # Magisk 内部组件
 MAGISKTMP=$MAGISKBASE/.magisk
 
-# Magisk's BusyBox directory. Within this folder stores
-# the busybox binary and symlinks to all of its applets.
-# Any usage of this directory is deprecated, please
-# directly call /data/adb/magisk/busybox and use
-# BusyBox's ASH Standalone mode.
-# The creation of this path will be removed in the future.
+# Magisk的BusyBox目录。在这个文件夹中存放着
+# busybox二进制文件和它所有小程序的符号链接。
+# 对这个目录的任何使用都是过时的，请
+# 直接调用/data/adb/magisk/busybox并使用
+# BusyBox的ASH独立模式。
+# 这个路径的创建将在未来被删除。
 $MAGISKTMP/busybox
 
-# /data/adb/modules will be bind mounted here.
-# The original folder is not used due to nosuid mount flag.
+# /data/adb/modules将被绑定挂载在这里。
+# 由于nosuid挂载标志，原始文件夹不被使用。
 $MAGISKTMP/modules
 
-# The current Magisk installation config
+# 当前的Magisk安装配置
 $MAGISKTMP/config
 
-# Partition mirrors
-# Each directory in this path will be mounted with the
-# partition of its directory name.
-# e.g. system, system_ext, vendor, data ...
+# 分区镜像
+# 这个路径中的每个目录都会被挂载到
+# 分区的目录名。
+# 例如：system, system_ext, vendor, data ...
 $MAGISKTMP/mirror
 
-# Block devices Magisk creates internally to mount mirrors.
+# Magisk在内部创建块状设备来挂载镜像。
 $MAGISKTMP/block
 
-# Root directory patch files
-# On system-as-root devices, / is not writable.
-# All pre-init patched files are stored here and bind mounted.
+# 根目录的补丁文件
+# 在系统为根的设备上，/是不可写的。
+# 所有启动前的补丁文件都存储在这里，并绑定安装。
 $MAGISKTMP/rootdir
 ```
 
-### Paths in `/data`
+### `/data`中的路径
 
-Some binaries and files should be stored on non-volatile storages in `/data`. In order to prevent detection, everything has to be stored somewhere safe and undetectable in `/data`. The folder `/data/adb` was chosen because of the following advantages:
+一些二进制程序和文件应该存储在`/data`的非易失性存储器中。为了防止被发现，所有的东西都必须存储在`/data`中一个安全的、不被发现的地方。选择`/data/adb`文件夹是因为有以下优点。
 
-- It is an existing folder on modern Android, so it cannot be used as an indication of the existence of Magisk.
-- The permission of the folder is by default `700`, owner as `root`, so non-root processes are unable to enter, read, write the folder in any possible way.
-- The folder is labeled with secontext `u:object_r:adb_data_file:s0`, and very few processes have the permission to do any interaction with that secontext.
-- The folder is located in _Device encrypted storage_, so it is accessible as soon as data is properly mounted in FBE (File-Based Encryption) devices.
+- 它是现代安卓系统上的一个现有文件夹，所以它不能被用作Magisk存在的标志。
+- 该文件夹的权限默认为`700`，所有者为`root`，所以非root进程无法以任何可能的方式进入、读取、写入该文件夹。
+- 该文件夹被标记为secontext `u:object_r:adb_data_file:s0`，很少有进程有权限与该secontext做任何交互。
+- 该文件夹位于_设备加密存储中，所以只要数据被正确挂载到FBE（基于文件的加密）设备中，就可以访问它。
 
 ```
 SECURE_DIR=/data/adb
 
-# Folder storing general post-fs-data scripts
+# 存储一般post-fs-data脚本的文件夹
 $SECURE_DIR/post-fs-data.d
 
-# Folder storing general late_start service scripts
+# 存储一般后期服务脚本的文件夹
 $SECURE_DIR/service.d
 
-# Magisk modules
+# Magisk模块
 $SECURE_DIR/modules
 
-# Magisk modules that are pending for upgrade
-# Module files are not safe to be modified when mounted
-# Modules installed through the Magisk app will be stored here
-# and will be merged into $SECURE_DIR/modules in the next reboot
+# 等待升级的Magisk模块
+# 模块文件在安装时不能安全地被修改
+# 通过Magisk应用程序安装的模块将被保存在这里
+# 并在下次重启时合并到$SECURE_DIR/modules中去
 $SECURE_DIR/modules_update
 
-# Database storing settings and root permissions
+# 存储设置和root权限的数据库
 MAGISKDB=$SECURE_DIR/magisk.db
 
-# All magisk related binaries, including busybox,
-# scripts, and magisk binaries. Used in supporting
-# module installation, addon.d, the Magisk app etc.
+# 所有与magisk相关的二进制文件，包括busybox,
+# 脚本，和magisk二进制文件。用于支持
+# 模块安装、addon.d、Magisk应用程序等。
 DATABIN=$SECURE_DIR/magisk
 
 ```
 
 ## Magisk 启动进程
 
-### Pre-Init
+### 预启动
 
-`magiskinit` will replace `init` as the first program to run.
+`magiskinit`将取代`init`成为第一个运行的程序。
 
-- Early mount required partitions. On legacy system-as-root devices, we switch root to system; on 2SI devices, we patch fstab and execute the original `init` to mount partitions for us.
-- Load sepolicy either from `/sepolicy`, precompiled sepolicy in vendor, or compile split sepolicy
-- Patch sepolicy rules and dump to `/sepolicy` or `/sbin/.se` or `/dev/.se`
-- Patch `init` or `libselinux.so` to force the system to load the patched policies
-- Inject magisk services into `init.rc`
-- Execute the original `init` to continue the boot process
+- 早期挂载所需的分区。在传统的system-as-root设备上，我们将root切换到system；在2SI设备上，我们修补fstab并执行原来的`init`来为我们装载分区。
+- 从`/sepolicy`中加载sepolicy，在供应商中预编译sepolicy，或者编译分割sepolicy
+- 给sepolicy规则打补丁并转储到`/sepolicy`或`/sbin/.se`或`/dev/.se`。
+- 给`init`或`libselinux.so`打上补丁，强迫系统加载打过补丁的策略。
+- 将Magisk服务注入到`init.rc`中。
+- 执行原始的`init'以继续启动过程
 
 ### post-fs-data
 
-This triggers on `post-fs-data` when `/data` is decrypted and mounted. The daemon `magiskd` will be launched, post-fs-data scripts are executed, and module files are magic mounted.
+当`/data`被解密和挂载时，在`post-fs-data`上触发。守护进程`magiskd`将被启动，post-fs-data脚本被执行，模块文件被神奇的挂载。
 
-### late_start
+###后期启动
 
-Later in the booting process, the class `late_start` will be triggered, and Magisk "service" mode will be started. In this mode, service scripts are executed.
+在启动过程的后期，`late_start`类将被触发，Magisk的 "服务 "模式将被启动。在这个模式下，服务脚本被执行。
 
 ## Resetprop
 
-Usually, system properties are designed to only be updated by `init` and read-only to non-root processes. With root you can change properties by sending requests to `property_service` (hosted by `init`) using commands such as `setprop`, but changing read-only props (props that start with `ro.` like `ro.build.product`) and deleting properties are still prohibited.
+通常，系统属性被设计为只能由`init`更新，对非root进程来说是只读的。在root下，你可以使用`setprop`等命令向`property_service`（由`init`托管）发送请求来改变属性，但改变只读属性（以`ro.`开头的属性，如`ro.build.product`）和删除属性仍然被禁止。
 
-`resetprop` is implemented by distilling out the source code related to system properties from AOSP and patched to allow direct modification to property area, or `prop_area`, bypassing the need to go through `property_service`. Since we are bypassing `property_service`, there are a few caveats:
+`resetprop`是通过从AOSP中提炼出与系统属性相关的源代码来实现的，并打了补丁，允许直接修改属性区域，或`prop_area`，绕过了需要通过`property_service`。由于我们绕过了`property_service`，有一些注意事项。
 
-- `on property:foo=bar` actions registered in `*.rc` scripts will not be triggered if property changes does not go through `property_service`. The default set property behavior of `resetprop` matches `setprop`, which **WILL** trigger events (implemented by first deleting the property then set it via `property_service`). There is a flag `-n` to disable it if you need this special behavior.
-- persist properties (props that starts with `persist.`, like `persist.sys.usb.config`) are stored in both `prop_area` and `/data/property`. By default, deleting props will **NOT** remove it from persistent storage, meaning the property will be restored after the next reboot; reading props will **NOT** read from persistent storage, as this is the behavior of `getprop`. With the flag `-p`, deleting props will remove the prop in **BOTH** `prop_area` and `/data/property`, and reading props will be read from **BOTH** `prop_area` and persistent storage.
+- 如果属性变化没有经过`property_service'，`on property:foo=bar'在`*.rc'脚本中注册的动作将不会被触发。`resetprop`的默认设置属性行为与`setprop`相匹配，它***会触发事件（通过首先删除属性然后通过`property_service`设置它来实现）。如果你需要这种特殊行为，有一个标志`-n`可以禁用它。
+- 持久属性（以`persist.`开头的道具，如`persist.sys.usb.config`）被存储在`prop_area`和`/data/property`中。默认情况下，删除道具将***不从持久性存储中删除，这意味着该属性将在下次重启后恢复；读取道具将***不从持久性存储中读取，因为这是`getprop`的行为。如果使用标志`-p`，删除道具将在*** `prop_area`和`/data/property`中删除道具，而读取道具将从*** `prop_area`和持久化存储读取。
 
 ## SELinux规则
 
