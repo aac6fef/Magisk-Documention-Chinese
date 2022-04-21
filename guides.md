@@ -1,6 +1,8 @@
-# Developer Guides
+# 开发者指南
 
 ## BusyBox
+
+Magisk 包含了一个完整的 BusyBox 二进制文件（包括了完整的 SELinux 支持），其位于`/data/adb/magisk/busybox`。Magisk 的 BusyBox 支持{运行时，切换到"ASH 独立 Shell 模式"}。当你运行 BusyBox 中的`ash`shell 时，每个命令都会直接使用 BusyBox 内的小程序
 
 Magisk ships with a feature complete BusyBox binary (including full SELinux support). The executable is located at `/data/adb/magisk/busybox`. Magisk's BusyBox supports runtime toggle-able "ASH Standalone Shell Mode". What this standalone mode means is that when running in the `ash` shell of BusyBox, every single command will directly use the applet within BusyBox, regardless of what is set as `PATH`. For example, commands like `ls`, `rm`, `chmod` will **NOT** use what is in `PATH` (in the case of Android by default it will be `/system/bin/ls`, `/system/bin/rm`, and `/system/bin/chmod` respectively), but will instead directly call internal BusyBox applets. This makes sure that scripts always run in a predictable environment and always have the full suite of commands no matter which Android version it is running on. To force a command _not_ to use BusyBox, you have to call the executable with full paths.
 
@@ -13,8 +15,9 @@ For those who want to use this "Standalone Mode" feature outside of Magisk, ther
 
 To make sure all subsequent `sh` shell executed also runs in standalone mode, option 1 is the preferred method (and this is what Magisk and the Magisk app internally use) as environment variables are inherited down to child processes.
 
-## Magisk Modules
+## Magisk 模块
 
+Magisk 模块是一个存储在`/data/adb/modules`的文件夹，标准的结构如下：
 A Magisk module is a folder placed in `/data/adb/modules` with the structure below:
 
 ```
