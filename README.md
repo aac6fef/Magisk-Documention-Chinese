@@ -17,6 +17,7 @@
 ## Thanks
 
 [Roger Zhang](https://github.com/RogerNB666) : 标准格式，完善翻译
+
 [英格兰皇家搞基骑士高嘉麒](https://zh.wikipedia.org/高嘉麒)：搞基技术指导，精神支持
 
 # 官方文档同步状态
