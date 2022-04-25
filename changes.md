@@ -100,131 +100,134 @@
 
 ### v21.4
 
-- [MagiskSU] Fix `su -c` behavior that broke many root apps
-- [General] Properly handle read/write over sockets (the `broken pipe` issue)
+- [MagiskSU] 修复了破坏许多root应用程序的`su -c`行为。
+- [General] 正确处理通过套接字的读/写（"断管 "问题）。
 
 ### v21.3
 
-- [MagiskInit] Avoid mounting `f2fs` userdata as it may result in kernel crashes. This shall fix a lot of bootloops
-- [MagiskBoot] Fix a minor header checksum bug for `DHTB` header and ASUS `blob` image formats
-- [MagiskHide] Allowing hiding isolated processes if the mount namespace is separated
+- [MagiskInit] 避免挂载`f2fs`用户数据，因为这可能导致内核崩溃。这将解决很多启动循环的问题
+- [MagiskBoot] 修复`DHTB`头和华硕`blob`图像格式的一个小头校验错误。
+- [MagiskHide] 如果挂载的名字空间是分离的，允许隐藏孤立的进程。
 
 ### v21.2
 
-- [MagiskInit] Detect 2SI after mounting `system_root` on legacy SAR devices
-- [General] Make sure `post-fs-data` scripts cannot block more than 35 seconds
-- [General] Fix the `magisk --install-module` command
-- [General] Trim Windows newline when reading files
-- [General] Directly log to file to prevent `logcat` weirdness
-- [MagiskBoot] Fix header dump/load for header v3 images
+- [MagiskInit] 在传统SAR设备上挂载`system_root`后检测2SI
+- [General] 确保`post-fs-data`脚本不能阻塞超过35秒
+- [一般] 修复`magisk --install-module`命令
+- [通用] 读取文件时修剪Windows换行符
+- [一般] 直接将日志记录到文件中，以防止 "logcat "的怪异现象。
+- [MagiskBoot] 修复头文件v3图像的转储/加载。
 
 ### v21.1
 
-- [MagiskBoot] Support boot header v3 (Pixel 5 and 4a 5G)
-- [MagiskBoot] Distinguish `lz4_lg` and `lz4_legacy` (Pixel 5 and 4a 5G)
-- [MagiskBoot] Support vendor boot images (for dev, not relevant for Magisk installation)
-- [MagiskInit] Support kernel cmdline `androidboot.fstab_suffix`
-- [MagiskInit] Support kernel initialized dm-verity on legacy SAR
-- [General] Significantly broaden sepolicy.rule compatibility
-- [General] Add Magisk binaries to `PATH` when executing boot scripts
-- [General] Update `--remove-modules` command implementation
-- [General] Make Magisk properly survive after factory reset on Android 11
-- [MagiskSU] Add APEX package `com.android.i18n` to `LD_LIBRARY_PATH` when linking `libsqlite.so`
-- [MagiskHide] Support hiding apps installed in secondary users (e.g. work profile)
-- [MagiskHide] Make zygote detection more robust
+- [MagiskBoot] 支持引导头v3（Pixel 5和4a 5G）。
+- [MagiskBoot] 区分`lz4_lg`和`lz4_legacy`（Pixel 5和4a 5G）。
+- [MagiskBoot] 支持供应商的启动镜像（用于开发，与Magisk安装无关）。
+- [MagiskInit] 支持内核cmdline `androidboot.fstab_suffix`。
+- [MagiskInit] 在传统的SAR上支持内核初始化dm-verity。
+- [通用] 大幅扩大sepolicy.rule的兼容性
+- 一般] 在执行启动脚本时，将Magisk二进制文件添加到`PATH`。
+- [一般] 更新`--remove-modules`命令的执行。
+- [通用] 使Magisk在安卓11系统上出厂重置后能正常生存。
+- [MagiskSU] 在连接`libsqlite.so`时，将APEX包`com.android.i18n`添加到`LD_LIBRARY_PATH`。
+- [MagiskHide] 支持隐藏安装在二级用户中的应用程序（例如工作档案）。
+- [MagiskHide] 使zygote检测更强大
 
 ### v21.0
 
-- [General] Support Android 11 🎉
-- [General] Add Safe Mode detection. Disable all modules when the device is booting into Safe Mode.
-- [General] Increase `post-fs-data` mode timeout from 10 seconds to 40 seconds
-- [MagiskInit] Rewritten 2SI support from scratch
-- [MagiskInit] Support when no `/sbin` folder exists (Android 11)
-- [MagiskInit] Dump fstab from device-tree to rootfs and force `init` to use it for 2SI devices
-- [MagiskInit] Strip out AVB for 2SI as it may cause bootloop
-- [Modules] Rewritten module mounting logic from scratch
-- [MagiskSU] For Android 8.0+, a completely new policy setup is used. This reduces compromises in Android's sandbox, providing more policy isolation and better security for root users.
-- [MagiskSU] Isolated mount namespace will now first inherit from parent process, then isolate itself from the world
-- [MagiskSU] Update communication protocol with Magisk Manager to work with the hardened SELinux setup
-- [MagiskPolicy] Optimize match all rules. This will significantly reduce policy binary size and save memory and improve general kernel performance.
-- [MagiskPolicy] Support declaring new types and attributes
-- [MagiskPolicy] Make policy statement closer to stock `*.te` format. Please check updated documentation or `magiskpolicy --help` for more details.
-- [MagiskBoot] Support compressed `extra` blobs
-- [MagiskBoot] Pad boot images to original size with zeros
-- [MagiskHide] Manipulate additional vendor properties
+- [General] 支持Android 11 🎉
+- 通用] 增加安全模式检测。当设备启动到安全模式时，禁用所有模块。
+- [General] 将 "post-fs-data "模式的超时时间从10秒增加到40秒。
+- [MagiskInit] 从头开始重写2SI支持.
+- [MagiskInit] 支持没有`/sbin`文件夹的情况（Android 11）。
+- [MagiskInit] 将fstab从device-tree转储到rootfs，并强迫`init`对2SI设备使用它。
+- [MagiskInit] 剔除2SI的AVB，因为它可能导致启动循环。
+- [模块] 从头开始重写模块安装逻辑
+- [MagiskSU] 对于Android 8.0+，使用了一个全新的策略设置。这减少了安卓沙盒中的妥协，为root用户提供了更多的策略隔离和更好的安全性。
+- [MagiskSU] 隔离的挂载命名空间现在将首先继承父进程，然后将自己与世界隔离。
+- [MagiskSU] 更新与Magisk Manager的通信协议，以便与强化的SELinux设置一起工作。
+- [MagiskPolicy] 优化所有匹配规则。这将大大减少策略二进制文件的大小，节省内存，并提高一般内核性能。
+- [MagiskPolicy] 支持声明新的类型和属性。
+- [MagiskPolicy] 使策略声明更接近于股票的`*.te`格式。请查看更新的文档或`magiskpolicy --help`了解更多细节。
+- [MagiskBoot] 支持压缩的`extra`blobs
+- [MagiskBoot] 将引导图像转为原始大小的零。
+- [MagiskHide] 操纵额外的供应商属性
 
 ### v20.4
 
-- [MagiskInit] Fix potential bootloop in A-only 2SI devices
-- [MagiskInit] Properly support Tegra partition naming
-- [General] Load libsqlite.so dynamically, which removes the need to use wrapper scripts on Android 10+
-- [General] Detect API level with a fallback method on some devices
-- [General] Workaround possible bug in x86 kernel readlinkat system call
-- [BusyBox] Enable SELinux features. Add chcon/runcon etc., and '-Z' option to many applets
-- [BusyBox] Introduce standalone mode. More details in release notes
-- [MagiskHide] Disable MagiskHide by default
-- [MagiskHide] Add more potential detectable system properties
-- [MagiskHide] Add workaround for Xiaomi devices bootloop when MagiskHide is enabled on cross region ROMs
-- [MagiskBoot] Support patching special Motorolla DTB format
-- [MagiskPolicy] Support 'genfscon' sepolicy rules
-- [Scripts] Support NAND based boot images (character nodes in /dev/block)
-- [Scripts] Better addon.d (both v1 and v2) support
-- [Scripts] Support Lineage Recovery for Android 10+
+- [MagiskInit] 修复A-only 2SI设备中潜在的启动循环。
+- [MagiskInit] 正确支持Tegra分区的命名
+- [General] 动态加载 libsqlite.so，这样就不需要在Android 10+上使用包装脚本了。
+- 通用] 在某些设备上用回退方法检测API级别。
+- 通用] 解决x86内核readlinkat系统调用中可能存在的错误。
+- [BusyBox] 启用SELinux功能。添加chcon/runcon等，以及许多小程序的'-Z'选项。
+- [BusyBox] 引入独立模式。更多细节见发行说明
+- [MagiskHide] 默认禁用MagiskHide。
+- [MagiskHide] 增加更多潜在的可检测系统属性
+- [MagiskHide] 在跨区域ROM上启用MagiskHide时，增加小米设备启动循环的解决方法。
+- [MagiskBoot] 支持修补特殊的Motorolla DTB格式
+- [MagiskPolicy] 支持 "genfscon "sepolicy规则
+- [Scripts] 支持基于NAND的启动镜像（/dev/block中的字符节点）。
+- [Scripts] 更好地支持addon.d（v1和v2）。
+- [Scripts] 支持Android 10+的Lineage Recovery。
 
 ### v20.3
 
-- [MagiskBoot] Fix `lz4_legacy` decompression
+- [MagiskBoot] 修复`lz4_legacy`解压问题
+
 
 ### v20.2
 
-- [MagiskSU] Properly handle communication between daemon and application (root request prompt)
-- [MagiskInit] Fix logging in kmsg
-- [MagiskBoot] Support patching dtb/dtbo partition formats
-- [General] Support pre-init sepolicy patch in modules
-- [Scripts] Update magisk stock image backup format
+- [MagiskSU] 正确处理守护程序和应用程序之间的通信（root请求提示）。
+- [MagiskInit] 修复kmsg中的日志记录
+- [MagiskBoot] 支持修补dtb/dtbo分区格式
+- [General] 支持模块中的pre-init sepolicy补丁
+- [Scripts] 更新Magisk股票镜像的备份格式
 
 ### v20.1
 
-- [MagiskSU] Support component name agnostic communication (for stub APK)
-- [MagiskBoot] Set proper `header_size` in boot image headers (fix vbmeta error on Samsung devices)
-- [MagiskHide] Scan zygote multiple times
-- [MagiskInit] Support recovery images without /sbin/recovery binary. This will fix some A/B devices unable to boot to recovery after flashing Magisk
-- [General] Move acct to prevent daemon being killed
-- [General] Make sure "--remove-modules" will execute uninstall.sh after removal
+- [MagiskSU] 支持组件名称无关的通信（用于存根APK）。
+- [MagiskBoot] 在启动镜像头中设置适当的`header_size`（修复三星设备上的vbmeta错误）。
+- [MagiskHide] 多次扫描zygote
+- [MagiskInit] 支持没有/sbin/recovery二进制的恢复图像。这将解决一些A/B设备在闪过Magisk后无法启动到恢复的问题。
+- [General] 移动acct以防止daemon被杀死。
+- [General] 确保"--remove-modules "在移除后会执行uninstall.sh。
 
 ### v20.0
 
-- [MagiskBoot] Support inject/modify `mnt_point` value in DTB fstab
-- [MagiskBoot] Support patching QCDT
-- [MagiskBoot] Support patching DTBH
-- [MagiskBoot] Support patching PXA-DT
-- [MagiskInit] [2SI] Support non A/B setup (Android 10)
-- [MagiskHide] Fix bug that reject process names with ":"
-- [MagicMount] Fix a bug that cause /product mirror not created
+- [MagiskBoot] 支持在DTB fstab中注入/修改`mnt_point`值
+- [MagiskBoot] 支持对QCDT进行修补。
+- [MagiskBoot] 支持给DTBH打补丁
+- [MagiskBoot] 支持给PXA-DT打补丁
+- [MagiskInit] [2SI] 支持非A/B设置（Android 10）。
+- [MagiskHide] 修正拒绝带":"的进程名称的错误。
+- [MagicMount] 修复了一个导致/产品镜像无法创建的错误。
+
 
 ### v19.4
 
-- [MagiskInit] [SAR] Boot system-as-root devices with system mounted as /
-- [MagiskInit] [2SI] Support 2-stage-init for A/B devices (Pixel 3 Android 10)
-- [MagiskInit] [initramfs] Delay sbin overlay creation to post-fs-data
-- [MagiskInit] [SARCompat] Old system-as-root implementation is deprecated, no more future changes
-- [MagiskInit] Add overlay.d support for root directory overlay for new system-as-root implementation
-- [MagiskSU] Unblock all signals in root shells (fix bash on Android)
-- [MagicMount] Support replacing files in /product
-- [MagiskHide] Support Android 10's Zygote blastula pool
-- [MagiskHide] All random strings now also have random length
-- [MagiskBoot] Allow no recompression for ramdisk.cpio
-- [MagiskBoot] Support some weird Huawei boot images
-- [General] Add new `--remove-modules` command to remove modules without root in ADB shell
-- [General] Support Android 10 new APEX libraries (Project Mainline)
+- [MagiskInit] [SAR] 以系统为根启动设备，系统安装为/。
+- [MagiskInit] [2SI] 支持A/B设备的2阶段启动（Pixel 3 Android 10）。
+- [MagiskInit] [initramfs] 延迟创建sbin覆盖层到fs-data之后。
+- [MagiskInit] [SARCompat] 旧的system-as-root实现已被废弃，未来不会再有变化。
+- [MagiskInit] 为新的系统即根目录覆盖添加overlay.d支持。
+- [MagiskSU] 解除对root shells中所有信号的封锁（修复Android上的bash）。
+- [MagicMount] 支持替换/product中的文件
+- [MagiskHide] 支持Android 10的Zygote blastula池
+- [MagiskHide] 所有随机字符串现在也有随机长度了
+- [MagiskBoot] 允许对ramdisk.cpio不进行重新压缩
+- [MagiskBoot] 支持一些奇怪的华为启动镜像
+- [General] 增加新的`--remove-modules`命令，以便在ADB shell中不需要root就可以删除模块。
+- [通用] 支持Android 10新的APEX库（项目主线）
 
 ### v19.3
 
-- [MagiskHide] Hugely improve process monitor implementation, hopefully should no longer cause 100% CPU and daemon crashes
-- [MagiskInit] Wait for partitions to be ready for early mount, should fix bootloops on a handful of devices
-- [MagiskInit] Support EROFS used in EMUI 9.1
-- [MagiskSU] Properly implement mount namespace isolation
-- [MagiskBoot] Proper checksum calculation for header v2
+- [MagiskHide] 大幅改进进程监控的实现，希望不再导致100%的CPU和守护程序崩溃
+- [MagiskInit] 等待分区准备好提前挂载，应该可以解决少数设备的启动循环问题。
+- [MagiskInit] 支持EMUI 9.1中使用的EROFS。
+- [MagiskSU] 正确实现挂载命名空间的隔离
+- [MagiskBoot] 正确计算头文件V2的校验和
+
 
 ### v19.2
 
