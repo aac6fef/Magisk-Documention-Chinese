@@ -4,21 +4,20 @@
 
 Magisk 包含了一个完整的 BusyBox 二进制文件（包括了完整的 SELinux 支持），其位于`/data/adb/magisk/busybox`。Magisk 的 BusyBox 支持{运行时，切换到"ASH 独立 Shell 模式"}。当你运行 BusyBox 中的`ash`shell 时，每个命令都会直接使用 BusyBox 内的小程序
 
-Magisk ships with a feature complete BusyBox binary (including full SELinux support). The executable is located at `/data/adb/magisk/busybox`. Magisk's BusyBox supports runtime toggle-able "ASH Standalone Shell Mode". What this standalone mode means is that when running in the `ash` shell of BusyBox, every single command will directly use the applet within BusyBox, regardless of what is set as `PATH`. For example, commands like `ls`, `rm`, `chmod` will **NOT** use what is in `PATH` (in the case of Android by default it will be `/system/bin/ls`, `/system/bin/rm`, and `/system/bin/chmod` respectively), but will instead directly call internal BusyBox applets. This makes sure that scripts always run in a predictable environment and always have the full suite of commands no matter which Android version it is running on. To force a command _not_ to use BusyBox, you have to call the executable with full paths.
+Magisk提供了一个功能完整的BusyBox二进制文件（包括完全的SELinux支持）。该可执行文件位于`/data/adb/magisk/busybox`。Magisk的BusyBox支持运行时可切换的 "ASH独立外壳模式"。这种独立模式的意思是，当在BusyBox的`ash`shell中运行时，每一个命令都会直接使用BusyBox中的小程序，而不管`PATH`的设置是什么。例如，像`ls`、`rm`、`chmod`这样的命令将***不使用`PATH`中的内容（在Android中默认为`/system/bin/ls`、`/system/bin/rm`和`/system/bin/chmod`），而是直接调用BusyBox内部小程序。这确保了脚本总是在一个可预测的环境中运行，并且无论在哪个Android版本上运行，都有全套的命令。要强迫一个命令_不使用BusyBox，你必须用完整的路径调用可执行文件。
 
-Every single shell script running in the context of Magisk will be executed in BusyBox's `ash` shell with standalone mode enabled. For what is relevant to 3rd party developers, this includes all boot scripts and module installation scripts.
+在Magisk环境下运行的每一个shell脚本都会在BusyBox的`ash`shell中执行，并启用独立模式。对于与第三方开发者相关的内容，这包括所有的启动脚本和模块安装脚本。
 
-For those who want to use this "Standalone Mode" feature outside of Magisk, there are 2 ways to enable it:
+对于那些想在Magisk之外使用这个 "独立模式 "功能的人来说，有两种方法可以启用它。
 
-1. Set environment variable `ASH_STANDALONE` to `1`<br>Example: `ASH_STANDALONE=1 /data/adb/magisk/busybox sh <script>`
-2. Toggle with command-line options:<br>`/data/adb/magisk/busybox sh -o standalone <script>`
+1. 设置环境变量 `ASH_STANDALONE` to `1`<br>Example: `ASH_STANDALONE=1 /data/adb/magisk/busybox sh <script>`
+2. 用命令行选项进行切换:<br>`/data/adb/magisk/busybox sh -o standalone <script>`
 
-To make sure all subsequent `sh` shell executed also runs in standalone mode, option 1 is the preferred method (and this is what Magisk and the Magisk app internally use) as environment variables are inherited down to child processes.
+为了确保随后执行的所有`sh` shell也能在独立模式下运行，选项1是首选方法（这也是Magisk和Magisk应用程序内部使用的方法），因为环境变量会继承到子进程。
 
 ## Magisk 模块
 
 Magisk 模块是一个存储在`/data/adb/modules`的文件夹，标准的结构如下：
-A Magisk module is a folder placed in `/data/adb/modules` with the structure below:
 
 ```
 /data/adb/modules
