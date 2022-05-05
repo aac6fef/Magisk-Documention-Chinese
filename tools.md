@@ -60,17 +60,17 @@ su -> magisk
       mkdir MODE ENTRY
         在权限MODE中创建目录ENTRY
       ln TARGET ENTRY
-        Create a symlink to TARGET with the name ENTRY
+        为TARGET创建一个名为ENTRY的符号链接
       mv SOURCE DEST
-        Move SOURCE to DEST
+       将SOURCE移到DEST
       add MODE ENTRY INFILE
-        Add INFILE as ENTRY in permissions MODE; replaces ENTRY if exists
+        在权限MODE中添加INFILE作为ENTRY；如果存在，将取代ENTRY。
       extract [ENTRY OUT]
-        Extract ENTRY to OUT, or extract all entries to current directory
+        将ENTRY提取到OUT，或者将所有条目提取到当前目录下。
       test
-        Test the current cpio's status
-        Return value is 0 or bitwise or-ed of following values:
-        0x1:Magisk    0x2:unsupported    0x4:Sony
+        测试当前cpio的状态
+        返回值为0或以下数值的位数或值。
+        0x1:Magisk    0x2:不支持  0x4:索尼
       patch
         Apply ramdisk patches
         Configure with env variables: KEEPVERITY KEEPFORCEENCRYPT
@@ -140,18 +140,18 @@ Options:
                      line by line as policy statements
                      (multiple --apply are allowed)
 
-If neither --load, --load-split, nor --compile-split is specified,
-it will load from current live policies (/sys/fs/selinux/policy)
+如果既没有指定--load、--load-split，也没有指定--compile-split。
+它将从当前的实时策略（/sys/fs/selinux/policy）加载。
 
-One policy statement should be treated as one parameter;
-this means each policy statement should be enclosed in quotes.
-Multiple policy statements can be provided in a single command.
+一个策略声明应被视为一个参数。
+这意味着每个策略声明应该用引号括起来。
+一条命令中可以提供多个策略声明。
 
-Statements has a format of "<rule_name> [args...]".
-Arguments labeled with (^) can accept one or more entries. Multiple
-entries consist of a space separated list enclosed in braces ({}).
-Arguments labeled with (*) are the same as (^), but additionally
-support the match-all operator (*).
+语句的格式为"<rule_name> [args...]"。
+标有（^）的参数可以接受一个或多个条目。多个
+条目由一个用大括号（{}）分隔的列表组成。
+标有(*)的参数与(^)相同，但额外地
+支持匹配通配符（*）。
 
 Example: "allow { s1 s2 } { t1 t2 } class *"
 Will be expanded to:
@@ -161,7 +161,7 @@ allow s1 t2 class { all-permissions-of-class }
 allow s2 t1 class { all-permissions-of-class }
 allow s2 t2 class { all-permissions-of-class }
 
-Supported policy statements:
+支持的策略声明:
 
 "allow *source_type *target_type *class *perm_set"
 "deny *source_type *target_type *class *perm_set"
@@ -171,9 +171,9 @@ Supported policy statements:
 "allowxperm *source_type *target_type *class operation xperm_set"
 "auditallowxperm *source_type *target_type *class operation xperm_set"
 "dontauditxperm *source_type *target_type *class operation xperm_set"
-- The only supported operation is 'ioctl'
-- xperm_set format is either 'low-high', 'value', or '*'.
-  '*' will be treated as '0x0000-0xFFFF'.
+- 唯一支持的操作是 'ioctl'
+- xperm_set 的格式是 'low-high'或 'value'或 '*'.
+  '*' 将会被当作 '0x0000-0xFFFF'.
   All values should be written in hexadecimal.
 
 "permissive ^type"
@@ -182,12 +182,12 @@ Supported policy statements:
 "typeattribute ^type ^attribute"
 
 "type type_name ^(attribute)"
-- Argument 'attribute' is optional, default to 'domain'
+- 参数 'attribute' 是可选的, 默认为 'domain'
 
 "attribute attribute_name"
 
 "type_transition source_type target_type class default_type (object_name)"
-- Argument 'object_name' is optional
+- 参数'object_name'是可选的
 
 "type_change source_type target_type class default_type"
 "type_member source_type target_type class default_type"
