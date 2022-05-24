@@ -71,73 +71,69 @@ su -> magisk
         返回值为0或以下数值的位数或值。
         0x1:Magisk    0x2:不支持  0x4:索尼
       patch
-        Apply ramdisk patches
-        Configure with env variables: KEEPVERITY KEEPFORCEENCRYPT
+        应用ramdisk的补丁
+        使用环境变量进行配置: KEEPVERITY KEEPFORCEENCRYPT
       backup ORIG
-        Create ramdisk backups from ORIG
+        从 ORIG 创建ramdisk备份
       restore
-        Restore ramdisk from ramdisk backup stored within incpio
+        从存储在incpio中的ramdisk备份中恢复ramdisk
       sha1
-        Print stock boot SHA1 if previously backed up in ramdisk
-
+        如果以前在ramdisk中备份过，则输出库存启动SHA1。
   dtb <input> <action> [args...]
-    Do dtb related actions to <input>
-    Supported actions:
+    对<input>做dtb相关的操作
+    支持的行为：
       print [-f]
-        Print all contents of dtb for debugging
-        Specify [-f] to only print fstab nodes
+        打印dtb的所有内容以进行调试
+        指定[-f]，只打印fstab节点
       patch
-        Search for fstab and remove verity/avb
-        Modifications are done directly to the file in-place
-        Configure with env variables: KEEPVERITY
+        搜索fstab并删除verity/avb
+        直接对文件进行就地修改
+        用环境变量进行配置：KEEPVERITY
 
-  split <input>
-    Split image.*-dtb into kernel + kernel_dtb
+  拆分<input>。
+    将image.*-dtb分成kernel + kernel_dtb
 
   sha1 <file>
-    Print the SHA1 checksum for <file>
+    打印<文件>的SHA1校验和
 
   cleanup
-    Cleanup the current working directory
+    清理当前工作目录
 
   compress[=format] <infile> [outfile]
-    Compress <infile> with [format] (default: gzip), optionally to [outfile]
+    检测格式并压缩 <infile>, [outfile]是可选的
     <infile>/[outfile] can be '-' to be STDIN/STDOUT
-    Supported formats: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg
+    支持的格式: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg
 
   decompress <infile> [outfile]
-    Detect format and decompress <infile>, optionally to [outfile]
+    检测格式并解压缩 <infile>, [outfile]是可选的
     <infile>/[outfile] can be '-' to be STDIN/STDOUT
-    Supported formats: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg
+    支持的格式: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg
 ```
 
 ### magiskinit
 
-This binary will replace `init` in the ramdisk of a Magisk patched boot image. It is originally created for supporting devices using system-as-root, but the tool is extended to support all devices and became a crucial part of Magisk. More details can be found in the **Pre-Init** section in [Magisk Booting Process](details.md#magisk-booting-process).
+这个二进制文件将取代Magisk修补启动镜像的ramdisk中的`init`。它最初是为支持使用system-as-root的设备而创建的，但是这个工具被扩展到支持所有的设备，成为Magisk的一个重要部分。更多的细节可以在**预启动**部分中找到。 [Magisk 启动过程](details.md#magisk-booting-process).
 
 ### magiskpolicy
 
-(This tool is aliased to `supolicy` for compatibility with SuperSU's sepolicy tool)
+(这个工具的别名为`supolicy`，以便与SuperSU的sepolicy工具兼容)
 
-This tool could be used for advanced developers to modify SELinux policies. In common scenarios like Linux server admins, they would directly modify the SELinux policy sources (`*.te`) and recompile the `sepolicy` binary, but here on Android we directly patch the binary file (or runtime policies).
+这个工具可用于高级开发人员修改SELinux策略。在常见的情况下，比如Linux服务器管理员，他们会直接修改SELinux策略源（`*.te`）并重新编译`sepolicy`二进制文件，但在Android上，我们直接对二进制文件（或运行时策略）打补丁。
 
-All processes spawned from the Magisk daemon, including root shells and all its forks, are running in the context `u:r:magisk:s0`. The rule used on all Magisk installed systems can be viewed as stock `sepolicy` with these patches: `magiskpolicy --magisk 'allow magisk * * *'`.
+所有从Magisk守护进程产生的进程，包括root shells和它的所有分叉，都在`u:r:magisk:s0`的上下文中运行。在所有安装了Magisk的系统上使用的规则可以被看作是原始`sepolicy`，有这些补丁。`magiskpolicy --magisk 'allow magisk * * *'`.
 
 ```
-Usage: ./magiskpolicy [--options...] [policy statements...]
+用法: ./magiskpolicy [--options...] [policy statements...]
 
-Options:
-   --help            show help message for policy statements
-   --load FILE       load monolithic sepolicy from FILE
-   --load-split      load from precompiled sepolicy or compile
-                     split cil policies
-   --compile-split   compile split cil policies
-   --save FILE       dump monolithic sepolicy to FILE
-   --live            immediately load sepolicy into the kernel
-   --magisk          apply built-in Magisk sepolicy rules
-   --apply FILE      apply rules from FILE, read and parsed
-                     line by line as policy statements
-                     (multiple --apply are allowed)
+选项。
+   --help             显示政策声明的帮助信息
+   --load FILE        从FILE加载单体的sepolicy
+   --load-split       从预编译的sepolicy中加载或编译拆分的cil策略
+   --compile-split    编译分离的cil策略
+   --save FILE        向FILE转储单一的sepolicy。
+   --live             立即将sepolicy加载到内核中
+   --magisk           应用内置的Magisk sepolicy规则
+   --apply FILE       应用FILE中的规则，读取并解析逐行作为策略声明(允许多个 --apply)
 
 如果既没有指定--load、--load-split，也没有指定--compile-split。
 它将从当前的实时策略（/sys/fs/selinux/policy）加载。
@@ -152,8 +148,8 @@ Options:
 标有(*)的参数与(^)相同，但额外地
 支持匹配通配符（*）。
 
-Example: "allow { s1 s2 } { t1 t2 } class *"
-Will be expanded to:
+示例: "allow { s1 s2 } { t1 t2 } class *"
+将扩展至:
 
 allow s1 t1 class { all-permissions-of-class }
 allow s1 t2 class { all-permissions-of-class }
