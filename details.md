@@ -88,11 +88,10 @@ DATABIN=$SECURE_DIR/magisk
 
 `magiskinit`将取代`init`成为第一个运行的程序。
 
-- 早期挂载所需的分区。在传统的system-as-root设备上，我们将root切换到system；在2SI设备上，我们修补fstab并执行原来的`init`来为我们装载分区。
-- 从`/sepolicy`中加载sepolicy，在供应商中预编译sepolicy，或者编译分割sepolicy
-- 给sepolicy规则打补丁并转储到`/sepolicy`或`/sbin/.se`或`/dev/.se`。
-- 给`init`或`libselinux.so`打上补丁，强迫系统加载打过补丁的策略。
+- 早期挂载需要的分区。在传统的system-as-root的设备上，我们把root切换到system；在2SI设备上，我们对原来的`init`打补丁，把第二阶段的init文件重定向到magiskinit，并执行它来为我们挂载分区。
 - 将Magisk服务注入到`init.rc`中。
+- 在使用monolithic策略的设备上，magisk从`/sepolicy`加载sepolicy；否则我们用FIFO劫持selinuxfs中的节点，设置`LD_PRELOAD`来钩住`security_load_policy`并在2SI设备上协助劫持，并启动一个守护进程来等待init尝试加载sepolicy。
+- 给sepolicy规则打上补丁。如果我们使用 "劫持 "方法，将打好补丁的sepolicy加载到内核中，解除对init的封锁并退出守护进程。
 - 执行原始的`init'以继续启动过程
 
 ### post-fs-data

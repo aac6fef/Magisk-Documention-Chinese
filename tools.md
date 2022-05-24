@@ -1,6 +1,6 @@
 # Magisk工具
 
-Magisk带有大量的安装工具、守护程序和开发人员使用的实用程序。本文档包括3个二进制文件和所有包含的小程序。这些二进制文件和小程序如下所示。
+Magisk带有大量的安装工具、守护程序和开发人员使用的实用程序。本文档包括4个二进制文件和所有包含的小程序。这些二进制文件和小程序如下所示。
 
 ```
 magiskboot /* 二进制文件 */
@@ -12,7 +12,6 @@ resetprop -> magisk
 su -> magisk
 ```
 
-注意: 你下载的Magisk压缩包只包含`magiskboot`、`magiskinit`和`magiskinit64`。二进制的`magisk`被压缩并嵌入到`magiskinit(64)`中。把`magiskinit(64)`推到你的设备上，然后运行`./magiskinit(64) -x magisk <path>`，从二进制文件中提取`magisk`。
 
 ### magiskboot
 
