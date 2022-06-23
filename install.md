@@ -110,7 +110,7 @@ Ramdisk 的结果代表着你的设备的启动分区是否具有 ramdisk。如�
 
 ### 解锁 Bootloader
 
-如果你尝试在现代的三星设备上解锁 bootloader ，你会收到一些警告。 最新引入的 `VaultKeeper` 服务会在一些情况下让 bootloader 拒绝接受仍和非官方的分区。
+如果你尝试在现代的三星设备上解锁 bootloader ，你会收到一些警告。 最新引入的 `VaultKeeper` 服务会在一些情况下让 bootloader 拒绝接受任何非官方的分区。
 
 - 打开 **开发者选项 → OEM 解锁** 以允许设备的 bootloader 被解锁。
 - 重启到下载模式 : 把你的设备关机，然后在启动时按你的设备特定的热键以进入下载模式。
